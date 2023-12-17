@@ -9,8 +9,8 @@ public class Item
     public string Artist { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
-    public string Height { get; set; }
-    public string Width { get; set; }
+    public double Height { get; set; }
+    public double Width { get; set; }
     public string Medium { get; set; }
     public int Year { get; set; }
     public string[] ImageUrl { get; set; }

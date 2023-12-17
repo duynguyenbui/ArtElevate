@@ -1,4 +1,4 @@
-using AuctionService.ErrorHandler;
+using AuctionService.Core;
 using AuctionService.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +17,6 @@ builder.Services.AddDbContext<AuctionDbContext>(options =>
 var app = builder.Build();
 
 // Configure middlewares
-app.MapGet("/", () => "Hello World!");
 app.MapControllers();
 // Global Handler Error
 app.UseExceptionHandler();

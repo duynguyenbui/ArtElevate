@@ -11,9 +11,9 @@ public class CreateAuctionDto
     [Required]
     public string Description { get; set; }
     [Required]
-    public string Height { get; set; }
+    public double Height { get; set; }
     [Required]
-    public string Width { get; set; }
+    public double Width { get; set; }
     [Required]
     public string Medium { get; set; }
     [Required]

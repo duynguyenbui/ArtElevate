@@ -75,8 +75,8 @@ namespace AuctionService.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<string>("Height")
-                        .HasColumnType("text");
+                    b.Property<double>("Height")
+                        .HasColumnType("double precision");
 
                     b.Property<string[]>("ImageUrl")
                         .HasColumnType("text[]");
@@ -87,8 +87,8 @@ namespace AuctionService.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<string>("Width")
-                        .HasColumnType("text");
+                    b.Property<double>("Width")
+                        .HasColumnType("double precision");
 
                     b.Property<int>("Year")
                         .HasColumnType("integer");

@@ -37,8 +37,8 @@ public class DbInitializer
                     Name = "Mona Lisa",
                     Description =
                         "\"Mona Lisa\" by Leonardo da Vinci, known for its enigmatic smile, is showcased at the Louvre Museum in Paris.",
-                    Height = "30 inches",
-                    Width = "20 inches",
+                    Height = 170,
+                    Width = 150,
                     Medium = "Oil on canvas",
                     Year = 1506,
                     ImageUrl = new[]
@@ -65,8 +65,8 @@ public class DbInitializer
                     Name = "Starry Night",
                     Description =
                         "\"Starry Night\" by Vincent van Gogh, renowned for its vibrant colors, is a masterpiece in art history.",
-                    Height = "24 inches",
-                    Width = "36 inches",
+                    Height = 140,
+                    Width = 160,
                     Medium = "Oil on canvas",
                     Year = 1889,
                     ImageUrl = new[]
@@ -92,8 +92,8 @@ public class DbInitializer
                     Name = "Guernica",
                     Description =
                         "\"Guernica\" by Pablo Picasso is a powerful anti-war painting depicting the horrors of the Spanish Civil War.",
-                    Height = "11 feet",
-                    Width = "25.6 feet",
+                    Height = 150,
+                    Width = 170,
                     Medium = "Oil on canvas",
                     Year = 1937,
                     ImageUrl = new[]
@@ -120,8 +120,8 @@ public class DbInitializer
                     Name = "The Scream",
                     Description =
                         "\"The Scream\" by Edvard Munch is an iconic expressionist painting depicting existential angst.",
-                    Height = "36 inches",
-                    Width = "28 inches",
+                    Height = 120,
+                    Width = 150,
                     Medium = "Oil on canvas",
                     Year = 1893,
                     ImageUrl = new[]
