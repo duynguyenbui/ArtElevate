@@ -1,5 +1,8 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace AuctionService.Entities;
 
+[Table("Items")]
 public class Item
 {
     public Guid Id { get; set; }
@@ -8,8 +11,8 @@ public class Item
     public string Description { get; set; }
     public string Height { get; set; }
     public string Width { get; set; }
-    public int Year { get; set; }
     public string Medium { get; set; }
+    public int Year { get; set; }
     public string[] ImageUrl { get; set; }
     
     // Navigation properties
