@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 // Create builder 
 var builder = WebApplication.CreateBuilder(args);
 
-// Ad services to the container.
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
