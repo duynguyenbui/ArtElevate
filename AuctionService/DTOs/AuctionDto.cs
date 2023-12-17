@@ -16,7 +16,7 @@ public class AuctionDto
     public double Width { get; set; }
     public string Medium { get; set; }
     public int Year { get; set; }
-    public string[] ImageUrl { get; set; }
+    public List<string> ImageUrl { get; set; }
     // Auction information
     public string Status { get; set; }
     public int ReservePrice { get; set; }

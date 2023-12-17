@@ -41,7 +41,7 @@ public class DbInitializer
                     Width = 150,
                     Medium = "Oil on canvas",
                     Year = 1506,
-                    ImageUrl = new[]
+                    ImageUrl = new List<string>()
                     {
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702803770/cmjq2kgom57sn7kwgfhm.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702803770/skjhtwvbcvja0qospmiz.jpg",
@@ -69,7 +69,7 @@ public class DbInitializer
                     Width = 160,
                     Medium = "Oil on canvas",
                     Year = 1889,
-                    ImageUrl = new[]
+                    ImageUrl = new List<string>()
                     {
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702803970/oijo6dqzqo5txf5fbupx.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702803970/rvwwgmmaojkjj2slbt4l.jpg",
@@ -96,7 +96,7 @@ public class DbInitializer
                     Width = 170,
                     Medium = "Oil on canvas",
                     Year = 1937,
-                    ImageUrl = new[]
+                    ImageUrl = new List<string>()
                     {
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702803915/uciv4jjcyinm2tx8mgyv.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702803914/qv6bsrl917mkxf9beiq3.jpg",
@@ -124,7 +124,7 @@ public class DbInitializer
                     Width = 150,
                     Medium = "Oil on canvas",
                     Year = 1893,
-                    ImageUrl = new[]
+                    ImageUrl = new List<string>()
                     {
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702804058/ojche6blcx2b4wukdfq8.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702804058/md9ioxhtdtyxb91ez4to.jpg",

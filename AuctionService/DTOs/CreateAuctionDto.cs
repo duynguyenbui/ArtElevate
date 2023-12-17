@@ -19,7 +19,7 @@ public class CreateAuctionDto
     [Required]
     public int Year { get; set; }
     [Required]
-    public string[] ImageUrl { get; set; }
+    public List<string> ImageUrl { get; set; }
     [Required]
     public int ReservePrice { get; set; }
     [Required]
