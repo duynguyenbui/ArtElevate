@@ -22,6 +22,7 @@ namespace AuctionService.Data.Migrations
                     SoldAmount = table.Column<int>(type: "integer", nullable: true),
                     CurrentHighBid = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     AuctionEnd = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -40,8 +41,8 @@ namespace AuctionService.Data.Migrations
                     Description = table.Column<string>(type: "text", nullable: true),
                     Height = table.Column<string>(type: "text", nullable: true),
                     Width = table.Column<string>(type: "text", nullable: true),
-                    Year = table.Column<int>(type: "integer", nullable: false),
                     Medium = table.Column<string>(type: "text", nullable: true),
+                    Year = table.Column<int>(type: "integer", nullable: false),
                     ImageUrl = table.Column<string[]>(type: "text[]", nullable: true),
                     AuctionId = table.Column<Guid>(type: "uuid", nullable: false)
                 },

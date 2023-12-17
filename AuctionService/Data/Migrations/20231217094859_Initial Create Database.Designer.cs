@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AuctionService.Data.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20231217081345_Initial Create Database")]
+    [Migration("20231217094859_Initial Create Database")]
     partial class InitialCreateDatabase
     {
         /// <inheritdoc />
@@ -51,6 +51,9 @@ namespace AuctionService.Data.Migrations
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Winner")
                         .HasColumnType("text");

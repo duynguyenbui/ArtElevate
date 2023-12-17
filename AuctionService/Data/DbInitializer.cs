@@ -113,7 +113,7 @@ public class DbInitializer
                 Status = Status.Live,
                 ReservePrice = 25000,
                 Seller = "bob",
-                AuctionEnd = DateTime.UtcNow.AddDays(18),
+                AuctionEnd = DateTime.UtcNow.AddDays(1),
                 Item = new Item
                 {
                     Artist = "Edvard Munch",

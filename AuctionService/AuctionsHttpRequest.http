@@ -1,0 +1,5 @@
+### Get All Auctions
+GET http://localhost:7001/api/auctions/
+
+### Get Auctions By ID
+GET http://localhost:7001/api/auctions/155225c1-4448-4066-9886-6786536e05ea
