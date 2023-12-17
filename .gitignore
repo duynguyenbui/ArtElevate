@@ -488,3 +488,7 @@ $RECYCLE.BIN/
 
 # DS_Store
 .DS_Store
+
+# Environment
+AuctionService/appsettings.Development.json
+AuctionService/appsettings.json
