@@ -4,6 +4,7 @@ using AuctionService.Entities;
 using AuctionService.RequestHelpers;
 using AuctionService.Services;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,14 +19,12 @@ public class AuctionsController(
     IImageService<ImageUploadResult, DeletionResult> imageService) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<List<AuctionDto>>> GetAllAuctions()
+    public async Task<ActionResult<List<AuctionDto>>> GetAllAuctions(string? date)
     {
-        var auctions = await dbContext.Auctions
-            .Include(x => x.Item)
-            .OrderBy(x => x.Item.Name)
-            .ToListAsync();
-
-        return Ok(mapper.Map<List<AuctionDto>>(auctions));
+        var query = dbContext.Auctions
+            .OrderBy(x => x.Item.Artist).AsQueryable();
+        if (!string.IsNullOrEmpty(date)) query = query.Where(x => x.UpdatedAt.CompareTo(DateTime.Parse(date).ToUniversalTime()) > 0);
+        return await query.ProjectTo<AuctionDto>(mapper.ConfigurationProvider).ToListAsync();
     }
 
     [HttpGet("{id}")]
@@ -61,7 +60,7 @@ public class AuctionsController(
         var auction = await dbContext.Auctions
             .Include(x => x.Item)
             .FirstOrDefaultAsync(x => x.Id == id);
-        
+
         // Map if exist attributes update
         auction.Item.Artist = updateAuctionDto.Artist ?? auction.Item.Artist;
         auction.Item.Name = updateAuctionDto.Name ?? auction.Item.Name;
@@ -70,8 +69,8 @@ public class AuctionsController(
         auction.Item.Height = updateAuctionDto.Height ?? auction.Item.Height;
         auction.Item.Medium = updateAuctionDto.Medium ?? auction.Item.Medium;
         auction.Item.Year = updateAuctionDto.Year ?? auction.Item.Year;
-        
-        var result  = await dbContext.SaveChangesAsync() > 0;
+
+        var result = await dbContext.SaveChangesAsync() > 0;
         return result ? Ok() : BadRequest("Couldn't save changes update");
     }
 

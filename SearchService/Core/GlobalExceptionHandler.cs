@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuctionService.Core;
+namespace SearchService.Core;
 
 public sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
 {
@@ -15,7 +15,7 @@ public sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logge
         {
             Status = statusCode,
             Title = title,
-            Detail = exception.Message
+            Detail = exception.Message,
         };
         httpContext.Response.StatusCode = problemDetails.Status.Value;
 
