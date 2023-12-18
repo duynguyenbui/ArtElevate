@@ -9,4 +9,6 @@ public class UpdateAuctionDto
     public double? Width { get; set; }
     public string? Medium { get; set; }
     public int? Year { get; set; }
+    public int? ReservePrice { get; set; }
+    public DateTime? AuctionEnd { get; set; }
 }
