@@ -20,10 +20,13 @@ public static class DatabaseInitializer
             .CreateAsync();
 
         using var scope = application.Services.CreateScope();
-        Console.WriteLine("[NO_DATA]:::Will attempt to seed some data");
         var httpClient = scope.ServiceProvider.GetRequiredService<AuctionServiceHttpClient>();
         var items = await httpClient.GetItemsForSearchDb();
-        Console.Write("LOG:::" + items.Count + " return from auction-svc");
-        if (items.Count > 0) await DB.SaveAsync(items);
+        Console.WriteLine("LOG:::" + items.Count + " return from auction-svc");
+        if (items.Count > 0)
+        {
+            Console.WriteLine("[Updated_DATA]:::Will attempt to seed some data");
+            await DB.SaveAsync(items);
+        }
     }
 }

@@ -6,6 +6,8 @@ using AuctionService.Services;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using CloudinaryDotNet.Actions;
+using Contracts;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,17 +15,21 @@ namespace AuctionService.Controllers;
 
 [ApiController]
 [Route("api/auctions")]
-public class AuctionsController(
+public class AuctionsController
+(
     AuctionDbContext dbContext,
     IMapper mapper,
-    IImageService<ImageUploadResult, DeletionResult> imageService) : ControllerBase
+    IImageService<ImageUploadResult, DeletionResult> imageService,
+    IPublishEndpoint publishEndpoint
+) : ControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<List<AuctionDto>>> GetAllAuctions(string? date)
     {
         var query = dbContext.Auctions
             .OrderBy(x => x.Item.Artist).AsQueryable();
-        if (!string.IsNullOrEmpty(date)) query = query.Where(x => x.UpdatedAt.CompareTo(DateTime.Parse(date).ToUniversalTime()) > 0);
+        if (!string.IsNullOrEmpty(date))
+            query = query.Where(x => x.UpdatedAt.CompareTo(DateTime.Parse(date).ToUniversalTime()) > 0);
         return await query.ProjectTo<AuctionDto>(mapper.ConfigurationProvider).ToListAsync();
     }
 
@@ -50,8 +56,16 @@ public class AuctionsController(
 
         auction.Item.ImageUrl = imageUrls;
         await dbContext.Auctions.AddAsync(auction);
-        await dbContext.SaveChangesAsync();
-        return Ok(mapper.Map<AuctionDto>(auction));
+        
+        var newAuction = mapper.Map<AuctionDto>(auction);
+        
+        // RabbitMQ
+        await publishEndpoint.Publish(mapper.Map<AuctionCreated>(newAuction));
+        
+        var result = await dbContext.SaveChangesAsync() > 0;
+        
+        if (!result) return BadRequest("Couldn't save changes to the Database");
+        return CreatedAtAction(nameof(GetAuctionById), new { auction.Id }, newAuction);
     }
 
     [HttpPatch("{id}")]
@@ -69,7 +83,9 @@ public class AuctionsController(
         auction.Item.Height = updateAuctionDto.Height ?? auction.Item.Height;
         auction.Item.Medium = updateAuctionDto.Medium ?? auction.Item.Medium;
         auction.Item.Year = updateAuctionDto.Year ?? auction.Item.Year;
-
+        // RabbitMQ
+        await publishEndpoint.Publish(mapper.Map<AuctionUpdated>(auction));
+        
         var result = await dbContext.SaveChangesAsync() > 0;
         return result ? Ok() : BadRequest("Couldn't save changes update");
     }
@@ -88,6 +104,9 @@ public class AuctionsController(
         }
 
         dbContext.Auctions.Remove(auction);
+
+        await publishEndpoint.Publish<AuctionDeleted>(new { Id = auction.Id.ToString() });
+        
         var result = await dbContext.SaveChangesAsync() > 0;
         return result ? Ok() : BadRequest("Couldn't delete auction");
     }

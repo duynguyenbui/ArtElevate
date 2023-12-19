@@ -1,9 +1,11 @@
 using System.Text.Json.Serialization;
+using AuctionService.Consumers;
 using AuctionService.Core;
 using AuctionService.Data;
 using AuctionService.Services;
 using AuctionService.Services.Implements;
 using CloudinaryDotNet.Actions;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 // Create builder 
@@ -20,7 +22,24 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 builder.Services.AddDbContext<AuctionDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-// Custom services
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddEntityFrameworkOutbox<AuctionDbContext>(options =>
+    {
+        options.QueryDelay = TimeSpan.FromSeconds(10);
+        options.UsePostgres();
+        options.UseBusOutbox();
+    });
+    
+    x.AddConsumersFromNamespaceContaining<AuctionCreatedFaultConsumer>();
+    x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction", false));
+    
+    x.UsingRabbitMq((context, configurator) =>
+    {
+        configurator.ConfigureEndpoints(context);
+    });
+});
 builder.Services.AddScoped<IImageService<ImageUploadResult, DeletionResult>, CloudinaryService>();
 
 // Construct application
