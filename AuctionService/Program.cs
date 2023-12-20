@@ -6,6 +6,7 @@ using AuctionService.Services;
 using AuctionService.Services.Implements;
 using CloudinaryDotNet.Actions;
 using MassTransit;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 
 // Create builder 
@@ -41,11 +42,22 @@ builder.Services.AddMassTransit(x =>
     });
 });
 builder.Services.AddScoped<IImageService<ImageUploadResult, DeletionResult>, CloudinaryService>();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = builder.Configuration["IdentityServiceUrl"];
+        options.RequireHttpsMetadata = false;
+        options.TokenValidationParameters.ValidateAudience = false;
+        options.TokenValidationParameters.NameClaimType = "username";
+    });
 
 // Construct application
 var app = builder.Build();
 
 // Configure middlewares
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 // Global Handler Error
 app.UseExceptionHandler();
