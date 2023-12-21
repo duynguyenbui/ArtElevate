@@ -43,10 +43,10 @@ public class DbInitializer
                     Year = 1506,
                     ImageUrl = new List<string>()
                     {
-                        "https://res.cloudinary.com/dsceyl414/image/upload/v1702803770/cmjq2kgom57sn7kwgfhm.jpg",
-                        "https://res.cloudinary.com/dsceyl414/image/upload/v1702803770/skjhtwvbcvja0qospmiz.jpg",
-                        "https://res.cloudinary.com/dsceyl414/image/upload/v1702803770/qc7na9bue65ftpsuao8m.jpg",
-                        "https://res.cloudinary.com/dsceyl414/image/upload/v1702803770/ryetfnym1uqs75fnwqii.jpg"
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135151/xp8zkzd6nv99uxr6p3lo.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135151/u8ne0dkumurr1brwldta.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135151/wnwtqx2xjhlfpi9ujxnd.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135151/sxadknodmvnet4krxugp.jpg"
                     }
                 }
             },
@@ -126,13 +126,88 @@ public class DbInitializer
                     Year = 1893,
                     ImageUrl = new List<string>()
                     {
-                        "https://res.cloudinary.com/dsceyl414/image/upload/v1702804058/ojche6blcx2b4wukdfq8.jpg",
-                        "https://res.cloudinary.com/dsceyl414/image/upload/v1702804058/md9ioxhtdtyxb91ez4to.jpg",
-                        "https://res.cloudinary.com/dsceyl414/image/upload/v1702804058/imexbowcwxnmfel55gi1.jpg",
-                        "https://res.cloudinary.com/dsceyl414/image/upload/v1702804058/kwsct5cltazftanvtvxv.jpg"
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1702814046/ljmlylgfdf6svmvac3pe.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1702814046/l2wfi4fijgu8agoxqppa.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1702814046/npi9lg3vvbjhasgojhoj.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1702814046/h1leto8ktjz1vl1ddxi5.jpg"
                     }
                 }
             },
+            new()
+            {
+                Id = Guid.Parse("67e81bc8-d0a2-43f7-bf23-96e0b2d16d2d"),
+                Status = Status.Live,
+                ReservePrice = 27000,
+                Seller = "emma",
+                AuctionEnd = DateTime.UtcNow.AddDays(4),
+                Item = new Item
+                {
+                    Artist = "Claude Monet",
+                    Name = "Water Lilies",
+                    Description = "Water Lilies is a series of approximately 250 oil paintings by Claude Monet.",
+                    Height = 89,
+                    Width = 93,
+                    Medium = "Oil on canvas",
+                    Year = 1919,
+                    ImageUrl = new List<string>()
+                    {
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135543/zqhnfbyamhgdmekpn4yr.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135543/wuvo0r0ehgzqi0avif8p.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135543/ue22cqssovvdo4icbmpt.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135542/qbwqsoygfj0fr0ys4xuu.jpg"
+                    }
+                }
+            },
+
+            new()
+            {
+                Id = Guid.Parse("836c6d87-0c3c-47ea-b9f0-4e9f1562f22b"),
+                Status = Status.Finished,
+                ReservePrice = 32000,
+                Seller = "frank",
+                AuctionEnd = DateTime.UtcNow.AddDays(5),
+                Item = new Item
+                {
+                    Artist = "Jackson Pollock",
+                    Name = "No. 5, 1948",
+                    Description =
+                        "No. 5, 1948 is a painting by Jackson Pollock, known for his unique style of drip painting.",
+                    Height = 243,
+                    Width = 152,
+                    Medium = "Oil, enamel, and aluminum on fiberboard",
+                    Year = 1948,
+                    ImageUrl = new List<string>()
+                    {
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135648/s7bu3gi6r2ejki5ljq6i.jpg"
+                    }
+                }
+            },
+
+            new()
+            {
+                Id = Guid.Parse("e2f933bf-d97c-4c9d-8234-fbdfb12784c7"),
+                Status = Status.Live,
+                ReservePrice = 7500,
+                Seller = "grace",
+                AuctionEnd = DateTime.UtcNow.AddDays(-2),
+                Item = new Item
+                {
+                    Artist = "Salvador Dalí",
+                    Name = "The Persistence of Memory",
+                    Description =
+                        "The Persistence of Memory is a surrealistic painting by Salvador Dalí, featuring melting clocks.",
+                    Height = 24,
+                    Width = 33,
+                    Medium = "Oil on canvas",
+                    Year = 1931,
+                    ImageUrl = new List<string>()
+                    {
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135747/vnnvv9zhknsftznwz79t.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135747/x5by4ehppmqzgbr61364.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135746/mt5n1yy2wlzvsgi1kl79.jpg"
+                    }
+                }
+            }
         };
 
         await context.AddRangeAsync(auctions);
