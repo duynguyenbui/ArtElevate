@@ -87,6 +87,7 @@ export const ImageSlider = ({ urls }: ImageSliderProps) => {
             <Image
               width={300}
               height={300}
+              priority
               loading="eager"
               className="-z-10 h-full w-full object-cover object-center"
               src={url}

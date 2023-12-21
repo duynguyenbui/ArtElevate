@@ -2,44 +2,27 @@
 
 import axios from 'axios';
 import useSWR from 'swr';
-import { AuctionPlaceholder } from './auction-placeholder';
-import { Pagination } from './pagination';
 import { useState } from 'react';
-import { Auction, PageResult } from '@/types';
+import { Auction, PageResult, SearchParams } from '@/types';
 import { AuctionCard } from './auction-card';
-import { Button } from './ui/button';
-import { useParamsStore } from '@/stores/useParamsStore';
-import { shallow } from 'zustand/shallow';
+import { useParamsStore } from '@/stores/use-params-store';
+import qs from 'query-string';
+import { Pagination } from './pagination';
 
 const fetcher = (url: string) =>
   axios.get(url).then((res) => res.data) as Promise<PageResult<Auction>>;
 
 export function AuctionListings() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(4);
-  const params = useParamsStore(
-    (state) => ({
-      pageNumber: state.pageNumber,
-      pageSize: state.pageSize,
-      searchTerm: state.searchTerm,
-    }),
-    shallow
-  );
+  const { searchParams, setPageNumber } = useParamsStore();
 
-  const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/search?pageSize=${pageSize}&pageNumber=${currentPage}`,
-    fetcher
-  );
-
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
-  };
-
-  const handlePageSize = (pageSize: number) => {
-    setPageSize(pageSize);
-  };
-
-  if (error) return <AuctionPlaceholder />;
+  const url = qs.stringifyUrl({
+    url: `${process.env.NEXT_PUBLIC_SERVER_URL}/search`,
+    query: {
+      pageNumber: searchParams.pageNumber,
+      searchTerm: searchParams.searchTerm,
+    },
+  });
+  const { data, error, isLoading } = useSWR(url, fetcher);
 
   return (
     <div>
@@ -53,24 +36,11 @@ export function AuctionListings() {
           <AuctionCard auction={auction} key={auction.id} index={i} />
         ))}
       </div>
-      <div className="p-3 mt-2">
-        <div className="flex justify-end gap-2">
-          <Button variant="outline" value={2} onClick={() => handlePageSize(2)}>
-            2
-          </Button>
-          <Button variant="outline" value={4} onClick={() => handlePageSize(4)}>
-            4
-          </Button>
-          <Button variant="outline" value={6} onClick={() => handlePageSize(6)}>
-            6
-          </Button>
-        </div>
-        <Pagination
-          currentPage={currentPage}
-          pageCount={data?.pageCount || 0}
-          onPageChange={handlePageChange}
-        />
-      </div>
+      <Pagination
+        currentPage={searchParams.pageNumber || 1}
+        pageCount={data?.pageCount || 0}
+        onPageChange={setPageNumber}
+      />
     </div>
   );
 }

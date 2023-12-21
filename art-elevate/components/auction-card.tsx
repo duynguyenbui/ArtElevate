@@ -19,7 +19,7 @@ export const AuctionCard = ({ auction, index }: ProductCardProps) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, index * 200);
+    }, index * 100);
 
     return () => clearTimeout(timer);
   }, [index]);

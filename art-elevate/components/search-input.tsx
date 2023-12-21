@@ -1,11 +1,25 @@
 'use client';
 
 import { Search } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Input } from './ui/input';
+import { useDebounce } from '@/stores/use-debounce';
+import { useParamsStore } from '@/stores/use-params-store';
+import { usePathname } from 'next/navigation';
 
 export const SearchInput = () => {
+  const pathname = usePathname();
   const [value, setValue] = useState('');
+  const debouncedValue = useDebounce(value);
+  const { setSearchTerm } = useParamsStore();
+
+  useEffect(() => {
+    setSearchTerm(debouncedValue);
+  }, [debouncedValue, setSearchTerm]);
+
+  if (pathname === '/') {
+    return null;
+  }
 
   return (
     <div className="relative">

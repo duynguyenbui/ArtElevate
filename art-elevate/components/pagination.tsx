@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from './ui/button';
+import { useParamsStore } from '@/stores/use-params-store';
 
 interface PaginationProps {
   currentPage: number;

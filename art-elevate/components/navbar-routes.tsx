@@ -5,19 +5,21 @@ import { SearchInput } from './search-input';
 import { Button } from './ui/button';
 import { LogIn } from 'lucide-react';
 import { NavigationMenuBar } from './navigation-menu';
+import { LoginButton } from './login-btn';
+import { DropdownMenuBar } from './dropdown-menu-bar';
+import { getCurrentUser } from '@/actions/auth-action';
 
-export const NavbarRoutes = () => {
+export const NavbarRoutes = async () => {
+  const user = await getCurrentUser();
+
   return (
     <div className="hidden md:flex items-center w-full justify-between">
       <Logo />
       <NavigationMenuBar />
       <SearchInput />
-      <div className="flex items-center justify-center space-x-3">
+      <div className="flex items-center justify-center space-x-3 mr-5">
         <ModeToggle />
-        <Button variant="default">
-          <LogIn className="w-4 h-4 mr-2" />
-          Login
-        </Button>
+        <DropdownMenuBar user={user}/>
       </div>
     </div>
   );
