@@ -1,3 +1,5 @@
+'use server';
+
 import { Auction, PageResult, SearchParams } from '@/types';
 import axios from 'axios';
 
@@ -25,3 +27,9 @@ export async function getAuctions(
     throw error;
   }
 }
+
+export const fetchAuctions = (url: string) =>
+  axios.get(url).then((res) => res.data) as Promise<PageResult<Auction>>;
+
+export const fetchAuctionId = (url: string) =>
+  axios.get(url).then((res) => res.data) as Promise<Auction>;

@@ -1,4 +1,4 @@
-import { getAuctions } from '@/actions/get-auctions';
+import { getAuctions } from '@/actions/auction-actions';
 import { AuctionsReel } from '@/components/auction-reel';
 import React from 'react';
 

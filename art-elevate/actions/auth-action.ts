@@ -1,3 +1,5 @@
+'use server';
+
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { NextApiRequest } from 'next';
 import { getServerSession } from 'next-auth';
@@ -30,4 +32,12 @@ export async function getTokenWorkAround() {
   } as NextApiRequest;
 
   return await getToken({ req });
+}
+
+export async function getHeaders() {
+  const token = await getTokenWorkAround();
+  if (token) {
+    return 'Bearer ' + token.access_token;
+  }
+  return null;
 }

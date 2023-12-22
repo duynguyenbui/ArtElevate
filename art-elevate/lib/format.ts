@@ -13,12 +13,7 @@ export function formatDateTime(dateTimeString: string): string {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
-    timeZoneName: 'short',
   };
 
-  const formattedDateTime: string = new Date(dateTimeString).toLocaleString(
-    'en-US',
-    options
-  );
-  return formattedDateTime;
+  return new Date(dateTimeString).toLocaleString('en-US', options);
 }

@@ -8,9 +8,7 @@ import { AuctionCard } from './auction-card';
 import { useParamsStore } from '@/stores/use-params-store';
 import qs from 'query-string';
 import { Pagination } from './pagination';
-
-const fetcher = (url: string) =>
-  axios.get(url).then((res) => res.data) as Promise<PageResult<Auction>>;
+import { fetchAuctions } from '@/actions/auction-actions';
 
 export function AuctionListings() {
   const { searchParams, setPageNumber } = useParamsStore();
@@ -22,7 +20,7 @@ export function AuctionListings() {
       searchTerm: searchParams.searchTerm,
     },
   });
-  const { data, error, isLoading } = useSWR(url, fetcher);
+  const { data, error, isLoading } = useSWR(url, fetchAuctions);
 
   return (
     <div>

@@ -1,7 +1,9 @@
+import { Toaster } from 'sonner';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
+import { AlertDeleteModal } from '@/components/alert-delete-modal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,6 +26,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <AlertDeleteModal />
+          <Toaster position="bottom-right" />
           {children}
         </ThemeProvider>
       </body>

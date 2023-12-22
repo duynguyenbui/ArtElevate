@@ -15,9 +15,11 @@ export const SearchInput = () => {
 
   useEffect(() => {
     setSearchTerm(debouncedValue);
+
+    return () => setValue('');
   }, [debouncedValue, setSearchTerm]);
 
-  if (pathname === '/') {
+  if (pathname !== '/auctions') {
     return null;
   }
 

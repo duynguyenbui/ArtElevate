@@ -1,5 +1,6 @@
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
+import { SessionProvider } from 'next-auth/react';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -7,7 +8,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="h-[80px] inset-y-0 w-full z-50">
         <Navbar />
       </div>
-      <main className="pt-[80px] flex-grow flex-1 p-4">{children}</main>
+      <main className="pt-[50px] flex-grow flex-1 p-3">
+        {children}
+      </main>
       <div className="w-full inset-y-0">
         <Footer />
       </div>
