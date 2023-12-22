@@ -23,50 +23,54 @@ import axios from 'axios';
 import { getHeaders } from '@/actions/auth-action';
 import { createAuctionFormSchema } from '@/helpers/create-auction-form-schema';
 import { useRouter } from 'next/navigation';
-import { ChangeEvent, useState } from 'react';
+import { useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
-function getImageData(event: ChangeEvent<HTMLInputElement>) {
-  const dataTransfer = new DataTransfer();
-
-  Array.from(event.target.files!).forEach((image) =>
-    dataTransfer.items.add(image)
-  );
-
-  const files = dataTransfer.files;
-  const displayUrl = URL.createObjectURL(event.target.files![0]);
-
-  return { files, displayUrl };
-}
-
 export const AuctionForm = () => {
-  const [preview, setPreview] = useState('');
-
+  const fileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const form = useForm<z.infer<typeof createAuctionFormSchema>>({
     resolver: zodResolver(createAuctionFormSchema),
   });
 
-  async function onSubmit(values: z.infer<typeof createAuctionFormSchema>) {
+  async function onSubmit(values: any) {
     try {
-      const filesInput = document.getElementById('files') as HTMLInputElement;
-      let Files: File[] = [];
-      Array.from(filesInput.files!).forEach((file) => {
-        Files.push(file);
-      });
-      console.log({ ...values, Files });
-      const res = await axios.postForm(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/auctions`,
-        { ...values, Files },
-        {
-          headers: {
-            Authorization: await getHeaders(),
-            'Content-Type': 'multipart/form-data',
-          },
+      if (fileInput.current) {
+        const files = Array.from(fileInput.current.files!);
+        const formData = new FormData();
+
+        files.forEach((file) => {
+          formData.append('Files', file);
+        });
+
+        let date = new Date(values.AuctionEnd);
+        var dateString = date.toISOString();
+
+        for (const key in values) {
+          if (key === 'AuctionEnd') {
+            formData.append(key, dateString);
+          } else {
+            formData.append(key, values[key]);
+          }
         }
-      );
-      toast.success('Auction has been createed successfully');
-      router.push(`/auctions/${res.data.id}`);
+
+        try {
+          const response = await axios.post(
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/auctions`,
+            formData,
+            {
+              headers: {
+                Authorization: await getHeaders(),
+                'Content-Type': 'multipart/form-data',
+              },
+            }
+          );
+          toast.success('Auction has been createed successfully');
+          router.push(`/auctions/${response.data.id}`);
+        } catch (error) {
+          console.error('Error uploading files:', error);
+        }
+      }
     } catch (error) {
       console.error('An error occurred during the POST request:', error);
       toast.error('Auction has not been created! Please try again later!');
@@ -78,7 +82,7 @@ export const AuctionForm = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold text-start">Auction Form</h1>
         <Avatar className="w-24 h-24 mr-[75px]">
-          <AvatarImage src={preview} />
+          <AvatarImage src={''} />
           <AvatarFallback>BU</AvatarFallback>
         </Avatar>
       </div>
@@ -195,32 +199,8 @@ export const AuctionForm = () => {
           />
           <div className="p-2">
             <FormLabel>Files</FormLabel>
-            <Input type="file" id="files" multiple />
+            <Input type="file" id="files" ref={fileInput} multiple />
           </div>
-          {/* <FormField
-            control={form.control}
-            name="Files"
-            render={({ field: { onChange, value, ...rest } }) => (
-              <FormItem>
-                <FormLabel>Files</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Files"
-                    type="file"
-                    multiple
-                    {...rest}
-                    onChange={(event) => {
-                      const { files, displayUrl } = getImageData(event);
-                      console.log(files);
-                      setPreview(displayUrl);
-                      onChange(files);
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
           <FormField
             control={form.control}
             name="AuctionEnd"
