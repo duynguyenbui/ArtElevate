@@ -18,7 +18,6 @@ public class CreateAuctionDto
     public string Medium { get; set; }
     [Required]
     public int Year { get; set; }
-    [Required]
     public List<IFormFile> Files { get; set; }
     [Required]
     public int ReservePrice { get; set; }

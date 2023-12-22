@@ -46,19 +46,20 @@ public class AuctionsController
 
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult> CreateAuction(CreateAuctionDto createAuctionDto)
+    public async Task<ActionResult> CreateAuction([FromForm] CreateAuctionDto createAuctionDto)
     {
         var auction = mapper.Map<Auction>(createAuctionDto);
-
         auction.Seller = User.Identity?.Name;
 
         List<string> imageUrls = new List<string>();
-        foreach (var formFile in createAuctionDto.Files)
+        if (createAuctionDto.Files is not null)
         {
-            var imageUploadResult = await imageService.AddImageAsync(formFile);
-            imageUrls.Add(imageUploadResult.SecureUrl.ToString());
+            foreach (var formFile in createAuctionDto.Files)
+            {
+                var imageUploadResult = await imageService.AddImageAsync(formFile);
+                imageUrls.Add(imageUploadResult.SecureUrl.ToString());
+            }
         }
-
         auction.Item.ImageUrl = imageUrls;
         await dbContext.Auctions.AddAsync(auction);
 
@@ -69,7 +70,8 @@ public class AuctionsController
 
         var result = await dbContext.SaveChangesAsync() > 0;
 
-        if (!result) return BadRequest("Couldn't save changes to the Database");
+        if (!result) return BadRequest();
+        
         return CreatedAtAction(nameof(GetAuctionById), new { auction.Id }, newAuction);
     }
 
@@ -94,6 +96,8 @@ public class AuctionsController
         auction.Item.Height = updateAuctionDto.Height ?? auction.Item.Height;
         auction.Item.Medium = updateAuctionDto.Medium ?? auction.Item.Medium;
         auction.Item.Year = updateAuctionDto.Year ?? auction.Item.Year;
+        auction.ReservePrice = updateAuctionDto.ReservePrice ?? auction.ReservePrice;
+        auction.AuctionEnd = updateAuctionDto.AuctionEnd ?? auction.AuctionEnd;
         // RabbitMQ
         await publishEndpoint.Publish(mapper.Map<AuctionUpdated>(auction));
 

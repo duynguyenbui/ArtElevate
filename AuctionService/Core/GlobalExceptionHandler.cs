@@ -15,7 +15,8 @@ public sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logge
         {
             Status = statusCode,
             Title = title,
-            Detail = exception.Message
+            Detail = exception.Message,
+            Instance = exception.StackTrace
         };
         httpContext.Response.StatusCode = problemDetails.Status.Value;
 
