@@ -16,14 +16,14 @@ COPY IdentityService/IdentityService.csproj IdentityService/IdentityService.cspr
 RUN dotnet restore ArtElevate.sln
 
 # Copy the app folders over
-COPY BiddingService BiddingService
+COPY NotificationService NotificationService
 COPY Contracts Contracts
-WORKDIR /app/BiddingService
+WORKDIR /app/NotificationService
 RUN dotnet publish -c Release -o /app/out
 
 # Build the runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/out .
-ENTRYPOINT ["dotnet", "BiddingService.dll"]
+ENTRYPOINT ["dotnet", "NotificationService.dll"]
 
