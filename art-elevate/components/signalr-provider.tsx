@@ -1,15 +1,30 @@
 'use client';
 
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { PropsWithChildren, ReactNode, useEffect, useState } from 'react';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { useBidsStore } from '@/stores/use-bids-store';
-import { Bid } from '@/types';
-import { useParams } from 'next/navigation';
+import { Auction, AuctionFinished, Bid } from '@/types';
+import { useParams, useRouter } from 'next/navigation';
 import { useAuctionStore } from '@/stores/use-auctions-store';
+import { toast } from 'sonner';
 
-export const SignalRProvider = ({ children }: PropsWithChildren) => {
+interface SignalRProviderProps {
+  children: ReactNode;
+  user:
+    | ({
+        username: string;
+      } & {
+        name?: string | null | undefined;
+        email?: string | null | undefined;
+        image?: string | null | undefined;
+      })
+    | null;
+}
+
+export const SignalRProvider = ({ children, user }: SignalRProviderProps) => {
   const [connection, setConnection] = useState<HubConnection | null>(null);
   const params = useParams();
+  const router = useRouter();
   const { addBid } = useBidsStore();
   const { setCurrentPrice } = useAuctionStore();
 
@@ -35,6 +50,32 @@ export const SignalRProvider = ({ children }: PropsWithChildren) => {
               }
             }
           });
+
+          connection.on('AuctionCreated', (auction: Auction) => {
+            if (user?.username !== auction.seller) {
+              toast.message('A new art work has been created!', {
+                description: `With ${auction.name} and ${auction.artist}`,
+                action: {
+                  label: 'See now',
+                  onClick: () => router.push(`/auctions/${auction.id}`),
+                },
+              });
+            }
+          });
+
+          connection.on('AuctionFinished', (auction: AuctionFinished) => {
+            if (user?.username !== auction.seller) {
+              toast.message('A new art work has been finished!', {
+                description: `With ${
+                  auction.amount ? auction.amount : 'no sold'
+                } and ${auction.seller}`,
+                action: {
+                  label: 'See now',
+                  onClick: () => router.push(`/auctions/${auction.auctionId}`),
+                },
+              });
+            }
+          });
         })
         .catch((error) => console.log(error));
     }
@@ -42,7 +83,7 @@ export const SignalRProvider = ({ children }: PropsWithChildren) => {
     return () => {
       connection?.stop();
     };
-  }, [connection, addBid, params.auctionId]);
+  }, [addBid, connection, params.auctionId, router, setCurrentPrice, user?.username]);
 
   return children;
 };

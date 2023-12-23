@@ -18,6 +18,7 @@ import { getBidsForAuction } from '@/actions/auction-actions';
 import { toast } from 'sonner';
 import { Loader } from './ui/loader';
 import { BidForm } from './bid-form';
+import { isAfter, parseISO } from 'date-fns';
 
 export const BidCard = ({
   auction,
@@ -81,7 +82,14 @@ export const BidCard = ({
               <Loader />
             </div>
           ) : (
-            <BidForm auctionId={auction.id} highBid={auction.currentHighBid} />
+            auction.status !== 'Finished' &&
+            auction.auctionEnd &&
+            isAfter(parseISO(auction.auctionEnd), new Date()) && (
+              <BidForm
+                auctionId={auction.id}
+                highBid={auction.currentHighBid}
+              />
+            )
           )}
         </CardFooter>
       )}

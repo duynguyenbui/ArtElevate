@@ -43,3 +43,11 @@ export interface SearchParams {
   pageNumber?: number;
   pageSize?: number;
 }
+
+export type AuctionFinished = {
+  itemSold: boolean;
+  auctionId: string;
+  winner?: string;
+  seller: string;
+  amount?: number;
+}

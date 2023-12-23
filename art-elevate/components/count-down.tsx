@@ -36,7 +36,7 @@ const renderer = ({
         className="w-full h-8"
       >
         {completed ? (
-          <span>Auction finished</span>
+          <span>Finished</span>
         ) : (
           <span suppressHydrationWarning={true}>
             {zeroPad(days)}:{zeroPad(hours)}:{zeroPad(minutes)}:

@@ -162,7 +162,7 @@ public class DbInitializer
             new()
             {
                 Id = Guid.Parse("836c6d87-0c3c-47ea-b9f0-4e9f1562f22b"),
-                Status = Status.Finished,
+                Status = Status.Live,
                 ReservePrice = 32000,
                 Seller = "frank",
                 AuctionEnd = DateTime.UtcNow.AddDays(5),
