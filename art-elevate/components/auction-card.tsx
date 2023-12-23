@@ -29,7 +29,7 @@ export const AuctionCard = ({ auction, index }: ProductCardProps) => {
   return (
     <div className='shadow-md hover:shadow-none'>
       <Link href={`/auctions/${auction.id}`} >
-        <div className="flex flex-col hover:scale-105 hover:bg-gray-100 dark:hover:bg-gray-500 rounded-lg transition-all p-3">
+        <div className="flex flex-col hover:bg-gray-100 dark:hover:bg-gray-500 rounded-lg transition-all p-3">
           <ImageSlider urls={auction.imageUrl} />
           <div className="flex justify-between">
             <div>

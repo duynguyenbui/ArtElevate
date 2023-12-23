@@ -1,16 +1,18 @@
 import { Menu } from 'lucide-react';
 
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Logo } from './logo';
+import { Sidebar } from './sidebar';
+import { getCurrentUser } from '@/actions/auth-action';
 
-export const MobileSidebar = () => {
+export const MobileSidebar = async () => {
+  const user = await getCurrentUser();
   return (
     <Sheet>
-      <SheetTrigger className="md:hidden pr-4 hover:opacity-75 transition">
+      <SheetTrigger className="md:hidden pr-4">
         <Menu />
       </SheetTrigger>
-      <SheetContent side="left" className="p-0 bg-white">
-        <Logo />
+      <SheetContent side="left" className="p-0 bg-secondary pt-10 w-32">
+        <Sidebar user={user}/>
       </SheetContent>
     </Sheet>
   );

@@ -22,9 +22,9 @@ import { cn } from '@/lib/utils';
 import axios from 'axios';
 import { getHeaders } from '@/actions/auth-action';
 import { useRouter } from 'next/navigation';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Auction } from '@/types';
 import { updateAuctionFormSchema } from '@/helpers/update-auction-form-schema';
+import { ImageSlider } from './image-slider';
 
 export const UpdateAuctionForm = ({ auction }: { auction: Auction }) => {
   const router = useRouter();
@@ -66,12 +66,13 @@ export const UpdateAuctionForm = ({ auction }: { auction: Auction }) => {
 
   return (
     <>
-      <div className="flex justify-between items-center">
-        <h1 className="text-xl font-bold text-start">Auction Form</h1>
-        <Avatar className="w-24 h-24 mr-[75px]">
-          <AvatarImage src={auction.imageUrl[0]} />
-          <AvatarFallback>BU</AvatarFallback>
-        </Avatar>
+      <div className="flex justify-between items-center space-x-2">
+        <h1 className="md:text-7xl text-4xl font-bold text-start">
+          {auction.name}
+        </h1>
+        <div className="w-[200px] h-[200px] mr-36">
+          <ImageSlider urls={auction.imageUrl} />
+        </div>
       </div>
       <Form {...form}>
         <form
@@ -222,7 +223,7 @@ export const UpdateAuctionForm = ({ auction }: { auction: Auction }) => {
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={form.formState.isSubmitting}>
+          <Button type="submit" disabled={form.formState.isSubmitting} className='mt-2'>
             <Send className="w-4 h-4 mr-2" />
             Submit
           </Button>

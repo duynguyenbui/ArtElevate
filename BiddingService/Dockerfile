@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+﻿FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 EXPOSE 80
 
@@ -15,13 +15,14 @@ COPY IdentityService/IdentityService.csproj IdentityService/IdentityService.cspr
 RUN dotnet restore ArtElevate.sln
 
 # Copy the app folders over
-COPY GatewayService GatewayService
-WORKDIR /app/GatewayService
+COPY BiddingService BiddingService
+COPY Contracts Contracts
+WORKDIR /app/BiddingService
 RUN dotnet publish -c Release -o /app/out
 
 # Build the runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/out .
-ENTRYPOINT ["dotnet", "GatewayService.dll"]
+ENTRYPOINT ["dotnet", "BiddingService.dll"]
 

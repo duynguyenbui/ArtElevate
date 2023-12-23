@@ -81,7 +81,7 @@ export function NavigationMenuBar() {
                 Explore our captivating collection of artwork auctions,
                 featuring a diverse range of styles and artists.
               </ListItem>
-              <ListItem href="#" title="Details">
+              <ListItem href="/auctions" title="Shop now">
                 Learn about the auction process, from placing bids to winning
                 your favorite pieces.
               </ListItem>

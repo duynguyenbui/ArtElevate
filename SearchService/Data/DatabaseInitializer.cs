@@ -12,7 +12,7 @@ public static class DatabaseInitializer
     {
         await DB.InitAsync("SearchDb",
             MongoClientSettings
-                .FromConnectionString(application.Configuration.GetConnectionString("MongoDbConnections")));
+                .FromConnectionString(application.Configuration.GetConnectionString("MongoDbConnection")));
         await DB.Index<Item>()
             .Key(x => x.Artist, KeyType.Text)
             .Key(x => x.Name, KeyType.Text)

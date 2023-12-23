@@ -14,7 +14,7 @@ const SessionPage = async () => {
   const session = await getSession();
   const token = await getTokenWorkAround();
   return (
-    <div className="flex flex-col p-20 space-y-2">
+    <div className="flex flex-col p-2 h-full space-y-2">
       <Card>
         <CardHeader>
           <CardTitle className="flex space-x-2">

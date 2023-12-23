@@ -24,7 +24,6 @@ import { getHeaders } from '@/actions/auth-action';
 import { createAuctionFormSchema } from '@/helpers/create-auction-form-schema';
 import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 export const AuctionForm = () => {
   const fileInput = useRef<HTMLInputElement>(null);
@@ -79,12 +78,8 @@ export const AuctionForm = () => {
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-start items-center">
         <h1 className="text-xl font-bold text-start">Auction Form</h1>
-        <Avatar className="w-24 h-24 mr-[75px]">
-          <AvatarImage src={''} />
-          <AvatarFallback>BU</AvatarFallback>
-        </Avatar>
       </div>
       <Form {...form}>
         <form
@@ -197,7 +192,7 @@ export const AuctionForm = () => {
               </FormItem>
             )}
           />
-          <div className="p-2">
+          <div className="mt-2 mb-4">
             <FormLabel>Files</FormLabel>
             <Input type="file" id="files" ref={fileInput} multiple />
           </div>
@@ -205,7 +200,7 @@ export const AuctionForm = () => {
             control={form.control}
             name="AuctionEnd"
             render={({ field }) => (
-              <FormItem className="flex flex-col">
+              <FormItem className="flex flex-col mb-2">
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
