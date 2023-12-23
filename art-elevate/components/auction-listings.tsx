@@ -20,7 +20,7 @@ export function AuctionListings() {
       searchTerm: searchParams.searchTerm,
     },
   });
-  const { data, error, isLoading } = useSWR(url, fetchAuctions);
+  const { data } = useSWR(url, fetchAuctions);
 
   return (
     <div>

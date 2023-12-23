@@ -7,6 +7,7 @@ const RootPage = async () => {
     pageNumber: 1,
     orderBy: 'new',
   });
+
   return (
     <AuctionsReel
       title={'Recently auctions updated'}

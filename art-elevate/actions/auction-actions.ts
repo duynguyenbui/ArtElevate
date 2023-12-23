@@ -1,7 +1,8 @@
 'use server';
 
-import { Auction, PageResult, SearchParams } from '@/types';
+import { Auction, Bid, PageResult, SearchParams } from '@/types';
 import axios from 'axios';
+import { getHeaders } from './auth-action';
 
 export async function getAuctions(
   searchParams: SearchParams
@@ -33,3 +34,25 @@ export const fetchAuctions = (url: string) =>
 
 export const fetchAuctionId = (url: string) =>
   axios.get(url).then((res) => res.data) as Promise<Auction>;
+
+export const getBidsForAuction = async (id: string) =>
+  axios
+    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/bids/${id}`)
+    .then((res) => res.data) as Promise<Bid[]>;
+
+export async function placeBidForAuctionAmount(
+  auctionId: string,
+  amount: number
+): Promise<Bid> {
+  return await axios
+    .post(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/bids?auctionId=${auctionId}&amount=${amount}`,
+      {},
+      {
+        headers: {
+          Authorization: await getHeaders(),
+        },
+      }
+    )
+    .then((res) => res.data);
+}

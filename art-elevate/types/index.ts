@@ -25,6 +25,15 @@ export interface Auction {
   id: string;
 }
 
+export type Bid = {
+  id: string;
+  auctionId: string;
+  bidder: string;
+  bidTime: string;
+  amount: number;
+  bidStatus: string;
+};
+
 export interface SearchParams {
   searchTerm?: string;
   orderBy?: 'artist' | 'new';

@@ -1,22 +1,30 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { Auction } from '@/types';
 import { AuctionCard } from './auction-card';
-import { AuctionPlaceholder } from './auction-placeholder';
+import { useAuctionStore } from '@/stores/use-auctions-store';
 
 interface AuctionsReelProps {
   title: string;
   subtitle?: string;
   href?: string;
-  auctions: Auction[];
+  auctions?: Auction[];
 }
 
-export const AuctionsReel = async ({
+export const AuctionsReel = ({
   title,
   subtitle,
   href,
   auctions,
 }: AuctionsReelProps) => {
+  const state = useAuctionStore();
+
+  useEffect(() => {
+    state.setData(auctions!);
+  }, [auctions]);
+
   return (
     <>
       <div className="md:flex md:items-center md:justify-between mb-4">
@@ -39,8 +47,8 @@ export const AuctionsReel = async ({
         ) : null}
       </div>
       <div className="sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-5">
-        {auctions &&
-          auctions.map((auction, i) => (
+        {state.auctions &&
+          state.auctions.map((auction, i) => (
             <AuctionCard auction={auction} key={i} index={i} />
           ))}
       </div>

@@ -1,4 +1,4 @@
-import { fetchAuctionId } from '@/actions/auction-actions';
+import { fetchAuctionId, getBidsForAuction } from '@/actions/auction-actions';
 import { getCurrentUser } from '@/actions/auth-action';
 import { AuctionCard } from '@/components/auction-card';
 import { AuctionPlaceholder } from '@/components/auction-placeholder';
@@ -14,11 +14,7 @@ const BREADCRUMBS = [
   { id: 2, name: 'Auctions', href: '/auctions' },
 ];
 
-const AuctionIdPage = async ({
-  params,
-}: {
-  params: { auctionId: string | undefined };
-}) => {
+const AuctionIdPage = async ({ params }: { params: { auctionId: string } }) => {
   const { auctionId } = params;
 
   const user = await getCurrentUser();
@@ -27,7 +23,7 @@ const AuctionIdPage = async ({
   );
 
   return (
-    <div className="mx-auto max-w-2xl px-4 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8 -mt-15">
+    <div className="mx-auto max-w-2xl px-4 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8 md:-mt-20">
       {data ? (
         <>
           <div className="lg:max-w-lg lg:self-end">
@@ -93,7 +89,7 @@ const AuctionIdPage = async ({
                 </p>
               </div>
             </section>
-            <BidCard />
+            <BidCard auction={data} user={user} />
           </div>
           <div className="mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center">
             <AuctionCard auction={data} index={0} />

@@ -27,14 +27,14 @@ export const AuctionCard = ({ auction, index }: ProductCardProps) => {
   if (isVisible) return <AuctionPlaceholder />;
 
   return (
-    <div className='shadow-md hover:shadow-none'>
-      <Link href={`/auctions/${auction.id}`} >
+    <div className="shadow-md hover:shadow-none">
+      <Link href={`/auctions/${auction.id}`}>
         <div className="flex flex-col hover:bg-gray-100 dark:hover:bg-gray-500 rounded-lg transition-all p-3">
           <ImageSlider urls={auction.imageUrl} />
           <div className="flex justify-between">
             <div>
               <h2 className="mt-4 font-medium text-lg text-gray-700 dark:text-white">
-                {auction.name}
+                {auction.name} | {auction.year}
               </h2>
               <h3 className="mt-1 text-md text-gray-500 dark:text-white">
                 {auction.artist}
@@ -45,7 +45,9 @@ export const AuctionCard = ({ auction, index }: ProductCardProps) => {
             </div>
             <div className="mr-2 p-2 items-center flex flex-col justify-center space-y-2">
               <p className="mt-1 font-medium text-sm text-gray-900 dark:text-white">
-                {auction.year}
+                {!auction.currentHighBid
+                  ? 'No bids'
+                  : formatPrice(auction.currentHighBid)}
               </p>
               <CountdownTimer auctionEnd={auction.auctionEnd} />
             </div>

@@ -24,12 +24,17 @@ import { getHeaders } from '@/actions/auth-action';
 import { createAuctionFormSchema } from '@/helpers/create-auction-form-schema';
 import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
+import { Textarea } from './ui/textarea';
 
 export const AuctionForm = () => {
+  // const [name, setName] = useState('Auction Form');
   const fileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const form = useForm<z.infer<typeof createAuctionFormSchema>>({
     resolver: zodResolver(createAuctionFormSchema),
+    defaultValues: {
+      Name: '',
+    },
   });
 
   async function onSubmit(values: any) {
@@ -79,7 +84,16 @@ export const AuctionForm = () => {
   return (
     <>
       <div className="flex justify-start items-center">
-        <h1 className="text-xl font-bold text-start">Auction Form</h1>
+        <h1 className="text-5xl font-bold text-start mb-2">
+          {form.watch('Name').length > 0
+            ? form.getValues('Name')
+            : 'Auction Form'}
+          <p className="text-xs text-muted-foreground">
+            {form.watch('Name').length > 0
+              ? form.getValues('Artist')
+              : 'Artist Name'}
+          </p>
+        </h1>
       </div>
       <Form {...form}>
         <form
@@ -108,7 +122,11 @@ export const AuctionForm = () => {
               <FormItem>
                 <FormLabel>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Name" {...field} />
+                  <Input
+                    placeholder="Name"
+                    {...field}
+                    // onChange={(e) => setName(e.target.value)}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -116,13 +134,39 @@ export const AuctionForm = () => {
           />
           <FormField
             control={form.control}
-            name="Description"
+            name="AuctionEnd"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Description</FormLabel>
-                <FormControl>
-                  <Input placeholder="Description" {...field} />
-                </FormControl>
+              <FormItem className="flex flex-col mt-2.5">
+                <FormLabel>Auction End</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={'outline'}
+                        className={cn(
+                          'text-left',
+                          !field.value && 'text-muted-foreground'
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, 'PPP')
+                        ) : (
+                          <span>Auction End</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-2" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) => date < new Date()}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
                 <FormMessage />
               </FormItem>
             )}
@@ -198,43 +242,25 @@ export const AuctionForm = () => {
           </div>
           <FormField
             control={form.control}
-            name="AuctionEnd"
+            name="Description"
             render={({ field }) => (
-              <FormItem className="flex flex-col mb-2">
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant={'outline'}
-                        className={cn(
-                          'text-left',
-                          !field.value && 'text-muted-foreground'
-                        )}
-                      >
-                        {field.value ? (
-                          format(field.value, 'PPP')
-                        ) : (
-                          <span>Auction End</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-2" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      disabled={(date) => date < new Date()}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
+              <FormItem>
+                <FormControl>
+                  <Textarea
+                    placeholder="Tell us a little bit about your auction"
+                    className="resize-none"
+                    {...field}
+                  />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={form.formState.isSubmitting}>
+          <Button
+            type="submit"
+            disabled={form.formState.isSubmitting}
+            className="mt-5"
+          >
             <Send className="w-4 h-4 mr-2" />
             Submit
           </Button>

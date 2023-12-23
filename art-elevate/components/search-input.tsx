@@ -24,7 +24,7 @@ export const SearchInput = () => {
   }
 
   return (
-    <div className="relative">
+    <div className="relative mr-2">
       <Input
         onChange={(e) => setValue(e.target.value)}
         value={value}

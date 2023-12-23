@@ -7,9 +7,12 @@ export const createAuctionFormSchema = z.object({
   Name: z.string().min(2, {
     message: 'Name must be at least 2 characters.',
   }),
-  Description: z.string().min(2, {
-    message: 'Description must be at least 2 characters.',
-  }),
+  Description: z
+    .string()
+    .min(10, {
+      message: 'Description must be at least 2 characters.',
+    })
+    .max(500, { message: 'Description must not be longer than 500 characters.' }),
   Height: z.coerce.number().min(1, {
     message: 'Height must be at least 100 cm.',
   }),

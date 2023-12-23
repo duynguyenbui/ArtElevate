@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import { AlertDeleteModal } from '@/components/alert-delete-modal';
+import { SignalRProvider } from '@/components/signalr-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,7 +29,7 @@ export default function RootLayout({
         >
           <AlertDeleteModal />
           <Toaster position="bottom-right" />
-          {children}
+          <SignalRProvider>{children}</SignalRProvider>
         </ThemeProvider>
       </body>
     </html>
