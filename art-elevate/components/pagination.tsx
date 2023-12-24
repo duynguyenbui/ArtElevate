@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
-import { Button } from './ui/button';
-import { useParamsStore } from '@/stores/use-params-store';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 
 interface PaginationProps {
   currentPage: number;
@@ -8,7 +15,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-export const Pagination = ({
+export const PaginationApp = ({
   currentPage,
   pageCount,
   onPageChange,
@@ -30,25 +37,40 @@ export const Pagination = ({
       onPageChange(newPage);
     }
   };
+  const handleTo = (pageNumber: number) => {
+    if (pageNumber >= 1 && pageNumber <= pageCount) {
+      setPageNumber(pageNumber);
+      onPageChange(pageNumber);
+    }
+  };
+
+  const renderPageNumbers = () => {
+    const pages = [];
+    for (let i = 1; i <= pageCount; i++) {
+      pages.push(
+        <PaginationLink
+          key={i}
+          isActive={pageNumber == i}
+          onClick={() => handleTo(i)}
+        >
+          {i}
+        </PaginationLink>
+      );
+    }
+    return pages;
+  };
 
   return (
-    <div className="flex items-center justify-end space-x-2 py-4 mt-1">
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={handlePrevious}
-        disabled={currentPage === 1}
-      >
-        Previous
-      </Button>
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={handleNext}
-        disabled={currentPage === pageCount}
-      >
-        Next
-      </Button>
-    </div>
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious onClick={handlePrevious} />
+        </PaginationItem>
+        {pageCount > 0 ? renderPageNumbers() : <PaginationEllipsis />}
+        <PaginationItem>
+          <PaginationNext onClick={handleNext} />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
   );
 };

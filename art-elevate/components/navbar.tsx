@@ -1,7 +1,6 @@
 import React from 'react';
 import { MobileSidebar } from './mobile-sidebar';
 import { NavbarRoutes } from './navbar-routes';
-import { ModeToggle } from './mode-toggle';
 
 export const Navbar = () => {
   return (

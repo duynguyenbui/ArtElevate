@@ -1,12 +1,6 @@
 import { SearchParams } from '@/types';
 import { create } from 'zustand';
 
-type Actions = {
-  setParams: (params: Partial<SearchParams>) => void;
-  reset: () => void;
-  setSearchTerm: (value: string) => void;
-};
-
 const initialState: SearchParams = {
   pageNumber: 1,
   pageSize: 4,

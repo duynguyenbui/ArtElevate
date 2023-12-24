@@ -1,10 +1,10 @@
-import { fetchAuctionId, getBidsForAuction } from '@/actions/auction-actions';
+import { fetchAuctionId } from '@/actions/auction-actions';
 import { getCurrentUser } from '@/actions/auth-action';
 import { AuctionCard } from '@/components/auction-card';
-import { AuctionPlaceholder } from '@/components/auction-placeholder';
+import { AuctionPlaceholder } from '@/components/placeholders/auction-placeholder';
 import { BidCard } from '@/components/bid-card';
 import { DeleteAuctionButton } from '@/components/delete-auction-btn';
-import { FramePlaceholder } from '@/components/frame-placeholder';
+import { FramePlaceholder } from '@/components/placeholders/frame-placeholder';
 import { Button } from '@/components/ui/button';
 import { formatDateTime } from '@/lib/format';
 import Link from 'next/link';
@@ -20,7 +20,10 @@ const AuctionIdPage = async ({ params }: { params: { auctionId: string } }) => {
   const user = await getCurrentUser();
   const data = await fetchAuctionId(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/auctions/${auctionId}`
-  );
+  ).catch((err) => {
+    console.log(err);
+    return null;
+  });
 
   return (
     <div className="mx-auto max-w-2xl px-4 sm:px-6 sm:py-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8 md:-mt-20">

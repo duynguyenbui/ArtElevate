@@ -1,6 +1,6 @@
 'use client';
 
-import { Skeleton } from './ui/skeleton';
+import { Skeleton } from '../ui/skeleton';
 
 export const AuctionPlaceholder = () => {
   return (

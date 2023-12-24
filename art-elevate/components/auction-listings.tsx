@@ -1,13 +1,10 @@
 'use client';
 
-import axios from 'axios';
 import useSWR from 'swr';
-import { useState } from 'react';
-import { Auction, PageResult, SearchParams } from '@/types';
 import { AuctionCard } from './auction-card';
-import { useParamsStore } from '@/stores/use-params-store';
+import { useParamsStore } from '@/hooks/use-params-store';
 import qs from 'query-string';
-import { Pagination } from './pagination';
+import { PaginationApp } from './pagination';
 import { fetchAuctions } from '@/actions/auction-actions';
 
 export function AuctionListings() {
@@ -20,10 +17,11 @@ export function AuctionListings() {
       searchTerm: searchParams.searchTerm,
     },
   });
+  
   const { data } = useSWR(url, fetchAuctions);
 
   return (
-    <div>
+    <div className="flex flex-col">
       <div className="md:flex md:items-center md:justify-between mb-4">
         <div className="max-w-2xl px-4 lg:max-w-4xl lg:px-0">
           <h1 className="text-2xl font-bold sm:text-3xl">Auctions</h1>
@@ -34,7 +32,7 @@ export function AuctionListings() {
           <AuctionCard auction={auction} key={auction.id} index={i} />
         ))}
       </div>
-      <Pagination
+      <PaginationApp
         currentPage={searchParams.pageNumber || 1}
         pageCount={data?.pageCount || 0}
         onPageChange={setPageNumber}

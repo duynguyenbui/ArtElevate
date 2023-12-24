@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { Auction } from '@/types';
 import { AuctionCard } from './auction-card';
-import { useAuctionStore } from '@/stores/use-auctions-store';
+import { useAuctionStore } from '@/hooks/use-auctions-store';
 
 interface AuctionsReelProps {
   title: string;

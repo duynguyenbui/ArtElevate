@@ -1,13 +1,9 @@
-'use client';
-
-import { useParamsStore } from '@/stores/use-params-store';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export const Logo = () => {
-  const { reset } = useParamsStore();
   return (
-    <Link href="/" onClick={() => reset()}>
+    <Link href="/">
       <Image
         height={100}
         width={100}

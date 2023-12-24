@@ -2,9 +2,9 @@ import { Toaster } from 'sonner';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { ThemeProvider } from '@/components/theme-provider';
-import { AlertDeleteModal } from '@/components/alert-delete-modal';
-import { SignalRProvider } from '@/components/signalr-provider';
+import { ThemeProvider } from '@/components/providers/theme-provider';
+import { AlertDeleteModal } from '@/components/modals/alert-delete-modal';
+import { SignalRProvider } from '@/components/providers/signalr-provider';
 import { getCurrentUser } from '@/actions/auth-action';
 
 const inter = Inter({ subsets: ['latin'] });

@@ -4,7 +4,7 @@ import React from 'react';
 import Countdown, { zeroPad } from 'react-countdown';
 import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
-import { calculatePercentageRemaining } from '@/lib/remain';
+import { calculatePercentageRemaining } from '@/lib/utils';
 
 type CountDownProps = {
   auctionEnd: string;

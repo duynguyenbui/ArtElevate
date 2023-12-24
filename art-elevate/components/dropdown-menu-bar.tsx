@@ -9,20 +9,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { LoginButton } from './login-btn';
-import { User } from 'lucide-react';
-import { Button } from './ui/button';
+import { User as UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
-
-type User =
-  | {
-      name?: string | null | undefined;
-      email?: string | null | undefined;
-      image?: string | null | undefined;
-      username?: string | null | undefined;
-    }
-  | null
-  | undefined;
+import { User } from '@/types';
 
 export const DropdownMenuBar = ({ user }: { user: User }) => {
   if (!user) {
@@ -32,7 +22,7 @@ export const DropdownMenuBar = ({ user }: { user: User }) => {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <div className="flex justify-center items-center space-x-3">
-            <User className="w-6 h-6" />
+            <UserIcon className="w-6 h-6" />
             <span className="text-md">{user.name}</span>
           </div>
         </DropdownMenuTrigger>

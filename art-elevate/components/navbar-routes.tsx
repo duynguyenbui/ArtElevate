@@ -2,10 +2,7 @@ import React from 'react';
 import { ModeToggle } from './mode-toggle';
 import { Logo } from './logo';
 import { SearchInput } from './search-input';
-import { Button } from './ui/button';
-import { LogIn } from 'lucide-react';
 import { NavigationMenuBar } from './navigation-menu';
-import { LoginButton } from './login-btn';
 import { DropdownMenuBar } from './dropdown-menu-bar';
 import { getCurrentUser } from '@/actions/auth-action';
 

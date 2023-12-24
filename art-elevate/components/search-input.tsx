@@ -3,20 +3,18 @@
 import { Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Input } from './ui/input';
-import { useDebounce } from '@/stores/use-debounce';
-import { useParamsStore } from '@/stores/use-params-store';
+import { useDebounce } from '@/hooks/use-debounce';
+import { useParamsStore } from '@/hooks/use-params-store';
 import { usePathname } from 'next/navigation';
 
 export const SearchInput = () => {
   const pathname = usePathname();
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState<string>();
   const debouncedValue = useDebounce(value);
   const { setSearchTerm } = useParamsStore();
 
   useEffect(() => {
-    setSearchTerm(debouncedValue);
-
-    return () => setValue('');
+    setSearchTerm(debouncedValue || '');
   }, [debouncedValue, setSearchTerm]);
 
   if (pathname !== '/auctions') {

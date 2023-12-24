@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import Link from 'next/link';
-
 import { cn } from '@/lib/utils';
 import {
   NavigationMenu,
@@ -96,13 +95,6 @@ export function NavigationMenuBar() {
           <Link href="/auctions" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Auctions
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="http://github.com/duynguyenbui" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Documentation
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

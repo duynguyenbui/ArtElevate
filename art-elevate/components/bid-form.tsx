@@ -9,7 +9,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
@@ -19,7 +18,7 @@ type BidFormProps = {
 };
 
 import * as z from 'zod';
-import { useBidsStore } from '@/stores/use-bids-store';
+import { useBidsStore } from '@/hooks/use-bids-store';
 import { ShoppingCart } from 'lucide-react';
 import { toast } from 'sonner';
 import { placeBidForAuctionAmount } from '@/actions/auction-actions';

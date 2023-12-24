@@ -11,9 +11,9 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { useArletDeleteModal } from '@/stores/use-store-modal';
+import { useArletDeleteModal } from '@/hooks/use-store-modal';
 import { toast } from 'sonner';
-import { Separator } from './ui/separator';
+import { Separator } from '../ui/separator';
 import { getHeaders } from '@/actions/auth-action';
 import { useRouter } from 'next/navigation';
 

@@ -4,7 +4,7 @@ import { formatDateTime, formatPrice } from '@/lib/format';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Terminal } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { formatBidStatus } from '@/lib/format-bid-status';
+import { formatBidStatus } from '@/lib/format';
 
 interface CurrentBidProps {
   bidder: string;

@@ -6,7 +6,7 @@ import Link from 'next/link';
 import CountdownTimer from './count-down';
 import { Auction } from '@/types';
 import { useEffect, useState } from 'react';
-import { AuctionPlaceholder } from './auction-placeholder';
+import { AuctionPlaceholder } from './placeholders/auction-placeholder';
 
 interface ProductCardProps {
   auction: Auction;

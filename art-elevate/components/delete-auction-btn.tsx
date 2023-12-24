@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Button } from './ui/button';
-import { useArletDeleteModal } from '@/stores/use-store-modal';
+import { useArletDeleteModal } from '@/hooks/use-store-modal';
 
 export const DeleteAuctionButton = ({ auctionId }: { auctionId: string }) => {
   const { onOpen } = useArletDeleteModal();
