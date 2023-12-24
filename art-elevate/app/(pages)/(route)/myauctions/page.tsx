@@ -1,8 +1,8 @@
 import React from 'react';
 import { DataTable } from './data-table';
 import { columns } from './columns';
-import { getCurrentUser } from '@/actions/auth-action';
 import { getAuctionsBySeller } from '@/actions/auction-actions';
+import { getCurrentUser } from '@/actions/auth-action';
 
 const MyAuctionsPage = async () => {
   const user = await getCurrentUser();
@@ -10,7 +10,7 @@ const MyAuctionsPage = async () => {
 
   return (
     <div>
-      <DataTable columns={columns} data={data || []} />
+      <DataTable columns={columns} data={data} />
     </div>
   );
 };
