@@ -9,7 +9,7 @@ export async function getAuctions(
 ): Promise<PageResult<Auction>> {
   try {
     const result = await axios.get(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/search`,
+      `${process.env.API_SERVER_URL}/search`,
       {
         params: {
           searchTerm: searchParams?.searchTerm,
@@ -37,7 +37,7 @@ export const fetchAuctionId = (url: string) =>
 
 export const getBidsForAuction = async (id: string) =>
   axios
-    .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/bids/${id}`)
+    .get(`${process.env.API_SERVER_URL}/bids/${id}`)
     .then((res) => res.data) as Promise<Bid[]>;
 
 export async function placeBidForAuctionAmount(
@@ -46,7 +46,7 @@ export async function placeBidForAuctionAmount(
 ): Promise<Bid> {
   return await axios
     .post(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/bids?auctionId=${auctionId}&amount=${amount}`,
+      `${process.env.API_SERVER_URL}/bids?auctionId=${auctionId}&amount=${amount}`,
       {},
       {
         headers: {
@@ -56,3 +56,8 @@ export async function placeBidForAuctionAmount(
     )
     .then((res) => res.data);
 }
+
+export const getAuctionsBySeller = (seller: string) =>
+  axios
+    .options(`${process.env.API_SERVER_URL}/search?seller=${seller}`)
+    .then((res) => res.data) as Promise<Auction[]>;

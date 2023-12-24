@@ -60,7 +60,7 @@ export const AuctionForm = () => {
 
         try {
           const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_SERVER_URL}/auctions`,
+            `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auctions`,
             formData,
             {
               headers: {

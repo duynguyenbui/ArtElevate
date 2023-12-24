@@ -31,7 +31,7 @@ export const AlertDeleteModal = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/auctions/${alertModal.auctionId}`,
+        `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auctions/${alertModal.auctionId}`,
         {
           headers: {
             Authorization: await getHeaders(),

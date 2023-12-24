@@ -1,6 +1,6 @@
 'use server';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/types/auth-options';
 import { NextApiRequest } from 'next';
 import { getServerSession } from 'next-auth';
 import { getToken } from 'next-auth/jwt';

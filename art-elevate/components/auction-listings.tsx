@@ -11,13 +11,14 @@ export function AuctionListings() {
   const { searchParams, setPageNumber } = useParamsStore();
 
   const url = qs.stringifyUrl({
-    url: `${process.env.NEXT_PUBLIC_SERVER_URL}/search`,
+    url: `${process.env.NEXT_PUBLIC_API_SERVER_URL}/search`,
     query: {
       pageNumber: searchParams.pageNumber,
       searchTerm: searchParams.searchTerm,
+      pageSize: 7,
     },
   });
-  
+
   const { data } = useSWR(url, fetchAuctions);
 
   return (

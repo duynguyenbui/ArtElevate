@@ -9,7 +9,7 @@ const EditPage = async ({ params }: { params: { auctionId: string } }) => {
 
   const user = await getCurrentUser();
   const auction = await fetchAuctionId(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/auctions/${auctionId}`
+    `${process.env.API_SERVER_URL}/auctions/${auctionId}`
   );
 
   if (user?.username !== auction.seller) {

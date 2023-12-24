@@ -15,8 +15,10 @@ public class SearchController : ControllerBase
         var query = DB.PagedSearch<Item, Item>();
 
         if (!string.IsNullOrEmpty(searchParams.SearchTerm))
+        {
             query.Match(Search.Full, searchParams.SearchTerm).SortByTextScore();
-
+        }
+        
         query = searchParams.OrderBy switch
         {
             "artist" => query.Sort(x => x.Ascending(f => f.Artist)),
@@ -47,4 +49,15 @@ public class SearchController : ControllerBase
             totalCount = executeAsyncQuery.TotalCount
         });
     }
+
+    [HttpOptions]
+    public async Task<ActionResult<List<Item>>> GetAuctionBySeller([FromQuery] string seller)
+    {
+        var query = await DB.Find<Item>()
+            .Match(a => a.Seller == seller)
+            .ExecuteAsync();
+
+        return Ok(query);
+    }
+    
 }

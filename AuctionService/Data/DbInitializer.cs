@@ -28,7 +28,7 @@ public class DbInitializer
             {
                 Id = Guid.Parse("afbee524-5972-4075-8800-7d1f9d7b0a0c"),
                 Status = Status.Live,
-                ReservePrice = 20000,
+                ReservePrice = 2,
                 Seller = "bob",
                 AuctionEnd = DateTime.UtcNow.AddDays(10),
                 Item = new Item
@@ -56,7 +56,7 @@ public class DbInitializer
             {
                 Id = Guid.Parse("c8c3ec17-01bf-49db-82aa-1ef80b833a9f"),
                 Status = Status.Live,
-                ReservePrice = 30000,
+                ReservePrice = 3,
                 Seller = "alice",
                 AuctionEnd = DateTime.UtcNow.AddDays(15),
                 Item = new Item
@@ -83,7 +83,7 @@ public class DbInitializer
             {
                 Id = Guid.Parse("155225c1-4448-4066-9886-6786536e05ea"),
                 Status = Status.Live,
-                ReservePrice = 50000,
+                ReservePrice = 5,
                 Seller = "alice",
                 AuctionEnd = DateTime.UtcNow.AddDays(25),
                 Item = new Item
@@ -111,7 +111,7 @@ public class DbInitializer
             {
                 Id = Guid.Parse("466e4744-4dc5-4987-aae0-b621acfc5e39"),
                 Status = Status.Live,
-                ReservePrice = 25000,
+                ReservePrice = 4,
                 Seller = "bob",
                 AuctionEnd = DateTime.UtcNow.AddDays(1),
                 Item = new Item
@@ -137,8 +137,8 @@ public class DbInitializer
             {
                 Id = Guid.Parse("67e81bc8-d0a2-43f7-bf23-96e0b2d16d2d"),
                 Status = Status.Live,
-                ReservePrice = 27000,
-                Seller = "emma",
+                ReservePrice = 6,
+                Seller = "tom",
                 AuctionEnd = DateTime.UtcNow.AddDays(4),
                 Item = new Item
                 {
@@ -163,8 +163,8 @@ public class DbInitializer
             {
                 Id = Guid.Parse("836c6d87-0c3c-47ea-b9f0-4e9f1562f22b"),
                 Status = Status.Live,
-                ReservePrice = 32000,
-                Seller = "frank",
+                ReservePrice = 7,
+                Seller = "alice",
                 AuctionEnd = DateTime.UtcNow.AddDays(5),
                 Item = new Item
                 {
@@ -187,9 +187,9 @@ public class DbInitializer
             {
                 Id = Guid.Parse("e2f933bf-d97c-4c9d-8234-fbdfb12784c7"),
                 Status = Status.Live,
-                ReservePrice = 7500,
-                Seller = "grace",
-                AuctionEnd = DateTime.UtcNow.AddDays(-2),
+                ReservePrice = 8,
+                Seller = "tom",
+                AuctionEnd = DateTime.UtcNow.AddDays(1),
                 Item = new Item
                 {
                     Artist = "Salvador Dalí",

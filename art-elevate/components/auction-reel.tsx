@@ -23,6 +23,7 @@ export const AuctionsReel = ({
 
   useEffect(() => {
     state.setData(auctions!);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auctions]);
 
   return (
@@ -48,9 +49,18 @@ export const AuctionsReel = ({
       </div>
       <div className="sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-5">
         {state.auctions &&
-          state.auctions.map((auction, i) => (
-            <AuctionCard auction={auction} key={i} index={i} />
-          ))}
+          state.auctions
+            .slice()
+            .sort(
+              (a, b) =>
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime()
+            )
+            .filter((a) => a.status !== 'Finished')
+            .slice(0, 4) // Take only the first 4 items
+            .map((auction, i) => (
+              <AuctionCard auction={auction} key={i} index={i} />
+            ))}
       </div>
     </>
   );

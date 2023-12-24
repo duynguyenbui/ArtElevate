@@ -15,6 +15,8 @@ export const SearchInput = () => {
 
   useEffect(() => {
     setSearchTerm(debouncedValue || '');
+
+    // return () => setValue('');
   }, [debouncedValue, setSearchTerm]);
 
   if (pathname !== '/auctions') {
@@ -26,7 +28,7 @@ export const SearchInput = () => {
       <Input
         onChange={(e) => setValue(e.target.value)}
         value={value}
-        className="w-full md:w-[500px] pl-9 rounded-full focus-visible:ring-slate-200"
+        className="w-full md:w-[500px] pl-9 rounded-full focus-visible:ring-slate-200 transition duration-0 hover:duration-150 "
         placeholder="Search for a art work"
       />
       <Search className="h-4 w-4 absolute top-3 left-3 text-slate-600" />

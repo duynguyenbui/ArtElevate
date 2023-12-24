@@ -46,7 +46,7 @@ export const UpdateAuctionForm = ({ auction }: { auction: Auction }) => {
   async function onSubmit(values: z.infer<typeof updateAuctionFormSchema>) {
     try {
       const res = await axios.patch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/auctions/${auction.id}`,
+        `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auctions/${auction.id}`,
         values,
         {
           headers: {

@@ -1,5 +1,4 @@
 import { getSession, getTokenWorkAround } from '@/actions/auth-action';
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -8,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { User, User2 } from 'lucide-react';
+import { User2 } from 'lucide-react';
 
 const SessionPage = async () => {
   const session = await getSession();

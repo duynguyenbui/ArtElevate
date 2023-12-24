@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { useBidsStore } from '@/hooks/use-bids-store';
 import { Auction, AuctionFinished, Bid } from '@/types';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useAuctionStore } from '@/hooks/use-auctions-store';
 import { toast } from 'sonner';
 import { formatPrice } from '@/lib/format';
@@ -24,13 +24,14 @@ interface SignalRProviderProps {
 
 export const SignalRProvider = ({ children, user }: SignalRProviderProps) => {
   const [connection, setConnection] = useState<HubConnection | null>(null);
+  const router = useRouter();
   const params = useParams();
   const { addBid } = useBidsStore();
   const { setCurrentPrice, addData } = useAuctionStore();
 
   useEffect(() => {
     const connection = new HubConnectionBuilder()
-      .withUrl(`${process.env.NEXT_PUBLIC_SERVER_URL}/notifications`)
+      .withUrl(`${process.env.NEXT_PUBLIC_NOTIFY_URL || 'http://localhost:6001/notifications'}`)
       .withAutomaticReconnect()
       .build();
 
@@ -53,6 +54,10 @@ export const SignalRProvider = ({ children, user }: SignalRProviderProps) => {
         if (user?.username !== auction.seller) {
           toast.message('A new art work has been created!', {
             description: `With ${auction.name} and ${auction.artist}`,
+            action: {
+              label: 'See now!!',
+              onClick: () => router.push(`/auctions/${auction.id}`),
+            },
           });
         }
       });
@@ -63,6 +68,10 @@ export const SignalRProvider = ({ children, user }: SignalRProviderProps) => {
             description: `With ${
               auction.amount ? formatPrice(auction.amount) : 'no sold'
             } and ${auction.seller}`,
+            action: {
+              label: 'Checkout',
+              onClick: () => router.push(`/auctions/${auction.auctionId}`),
+            },
           });
         }
       });
@@ -87,6 +96,7 @@ export const SignalRProvider = ({ children, user }: SignalRProviderProps) => {
     addData,
     connection,
     params.auctionId,
+    router,
     setCurrentPrice,
     user?.username,
   ]);
