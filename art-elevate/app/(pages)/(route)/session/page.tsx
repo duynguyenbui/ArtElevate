@@ -11,6 +11,7 @@ import { User2 } from 'lucide-react';
 
 const SessionPage = async () => {
   const session = await getSession();
+  console.log(session);
   const token = await getTokenWorkAround();
   return (
     <div className="flex flex-col p-2 h-full space-y-2">

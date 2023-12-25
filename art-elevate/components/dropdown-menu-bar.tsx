@@ -36,7 +36,7 @@ export const DropdownMenuBar = ({ user }: { user: User }) => {
           <Link href="/session">
             <DropdownMenuItem>Profile</DropdownMenuItem>
           </Link>
-          <Link href="/myauctions">
+          <Link href="/my-auctions">
             <DropdownMenuItem>Auctions</DropdownMenuItem>
           </Link>
           <Link href="/sell">
