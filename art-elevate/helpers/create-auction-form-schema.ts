@@ -12,7 +12,9 @@ export const createAuctionFormSchema = z.object({
     .min(10, {
       message: 'Description must be at least 2 characters.',
     })
-    .max(500, { message: 'Description must not be longer than 500 characters.' }),
+    .max(500, {
+      message: 'Description must not be longer than 500 characters.',
+    }),
   Height: z.coerce.number().min(1, {
     message: 'Height must be at least 100 cm.',
   }),
@@ -25,8 +27,8 @@ export const createAuctionFormSchema = z.object({
   Year: z.coerce.number().min(0, {
     message: 'Year must be at least 0.',
   }),
-  ReservePrice: z.coerce.number().min(1000, {
-    message: 'Reserve Price must be at least 1000',
+  ReservePrice: z.coerce.number().min(1, {
+    message: 'Reserve Price must be at least 1',
   }),
   AuctionEnd: z.date({
     required_error: 'A auction end is required.',

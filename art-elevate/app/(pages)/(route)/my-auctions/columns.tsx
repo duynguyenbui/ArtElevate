@@ -13,6 +13,7 @@ import { formatDateTime, formatPrice } from '@/lib/format';
 import { Auction } from '@/types';
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import Link from 'next/link';
 
 export const columns: ColumnDef<Auction>[] = [
   {
@@ -130,7 +131,9 @@ export const columns: ColumnDef<Auction>[] = [
               Copy auction ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => {}}>View Details</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={`/auctions/${auction.id}`}>View Details</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

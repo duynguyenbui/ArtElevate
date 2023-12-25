@@ -1,7 +1,6 @@
 import React from 'react';
 import { DataTable } from './data-table';
 import { columns } from './columns';
-import { getSession } from 'next-auth/react';
 import { getAuctionsBySeller } from '@/actions/auction-actions';
 import { getCurrentUser } from '@/actions/auth-action';
 
