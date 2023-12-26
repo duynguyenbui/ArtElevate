@@ -16,7 +16,7 @@
 - **Frameworks:**
   - [Next.js 13.5](https://nextjs.org/)
   - [.NET 8](https://dotnet.microsoft.com/)
-  - [MAUI](https://github.com/dotnet/maui) for the mobile app
+  - [MAUI](https://github.com/dotnet/maui) for the mobile app (Comming soon)
 
 - **Technologies:**
   - Utilizing a [three-tier architecture](https://www.ibm.com/topics/three-tier-architecture) for each service
@@ -26,10 +26,10 @@
   - [gRPC](https://grpc.io/) to enhance performance
   - [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/)
   - [Rate limiting](https://learn.microsoft.com/en-us/aspnet/core/performance/rate-limit?view=aspnetcore-8.0)
-  - [Stripe](https://stripe.com/) for online payments
+  - [Stripe](https://stripe.com/) for online payments (x)
   - JWT Token using [NextAuth](https://next-auth.js.org/) for the client and Identity Server for the server
-  - [Redis](https://redis.io/) for caching
-  - Integration of OpenAI's [GPT 3.5](https://openai.com/) for customer support functions
+  - [Redis](https://redis.io/) for caching (x)
+  - Integration of OpenAI's [GPT 3.5](https://openai.com/) for customer support functions (x)
   - [Tailwind CSS](https://tailwindcss.com/) for the user interface (Shadcn/ui)
 
 ---
