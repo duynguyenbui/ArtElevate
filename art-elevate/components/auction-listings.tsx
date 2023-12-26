@@ -12,8 +12,13 @@ export function AuctionListings() {
   const [pageResult, setPageResult] = useState<PageResult<Auction>>();
   const { searchParams, setPageNumber } = useParamsStore();
 
+  const apiUrl =
+    process.env.NODE_ENV === 'production'
+      ? 'http://gateway-svc'
+      : process.env.NEXT_PUBLIC_API_SERVER_URL;
+
   const url = qs.stringifyUrl({
-    url: `${process.env.NEXT_PUBLIC_API_SERVER_URL}/search`,
+    url: `${apiUrl}/search`,
     query: {
       pageNumber: searchParams.pageNumber,
       searchTerm: searchParams.searchTerm,
@@ -37,11 +42,7 @@ export function AuctionListings() {
           <AuctionCard auction={auction} key={auction.id} index={i} />
         ))}
       </div>
-      <PaginationApp
-        currentPage={searchParams.pageNumber || 1}
-        pageCount={pageResult?.pageCount || 0}
-        onPageChange={setPageNumber}
-      />
+      <PaginationApp currentPage={searchParams.pageNumber || 1} pageCount={pageResult?.pageCount || 0} onPageChange={setPageNumber}/>
     </div>
   );
 }

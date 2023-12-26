@@ -1,6 +1,5 @@
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
-import { SessionProvider } from 'next-auth/react';
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (

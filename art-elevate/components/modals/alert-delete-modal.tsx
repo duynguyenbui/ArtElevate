@@ -18,6 +18,11 @@ import { getHeaders } from '@/actions/auth-action';
 import { useRouter } from 'next/navigation';
 
 export const AlertDeleteModal = () => {
+  const apiUrl =
+    process.env.NODE_ENV === 'production'
+      ? 'https://api.artelevate.com'
+      : process.env.NEXT_PUBLIC_API_SERVER_URL;
+
   const alertModal = useArletDeleteModal();
   const [isMounted, setIsMounted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,7 +36,7 @@ export const AlertDeleteModal = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auctions/${alertModal.auctionId}`,
+        `${apiUrl}/auctions/${alertModal.auctionId}`,
         {
           headers: {
             Authorization: await getHeaders(),

@@ -1,8 +1,8 @@
 'use server';
 
 import { Auction, Bid, PageResult, SearchParams } from '@/types';
-import axios from 'axios';
 import { getHeaders } from './auth-action';
+import axios from 'axios';
 
 export async function getAuctions(
   searchParams: SearchParams

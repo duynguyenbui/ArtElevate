@@ -9,7 +9,7 @@ const SignInPage = ({
   searchParams: { callBackUrl: string };
 }) => {
   return (
-    <div className="flex items-center">
+    <div className="container flex items-center">
       <Alert variant="destructive">
         <Terminal className="h-4 w-4" />
         <AlertTitle>Heads up!</AlertTitle>

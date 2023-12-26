@@ -25,9 +25,13 @@ import { useRouter } from 'next/navigation';
 import { Auction } from '@/types';
 import { updateAuctionFormSchema } from '@/helpers/update-auction-form-schema';
 import { ImageSlider } from './image-slider';
-import { useState } from 'react';
 
 export const UpdateAuctionForm = ({ auction }: { auction: Auction }) => {
+  const apiUrl =
+    process.env.NODE_ENV === 'production'
+      ? 'https://api.artelevate.com'
+      : process.env.NEXT_PUBLIC_API_SERVER_URL;
+
   const router = useRouter();
   const form = useForm<z.infer<typeof updateAuctionFormSchema>>({
     resolver: zodResolver(updateAuctionFormSchema),
@@ -46,7 +50,7 @@ export const UpdateAuctionForm = ({ auction }: { auction: Auction }) => {
   async function onSubmit(values: z.infer<typeof updateAuctionFormSchema>) {
     try {
       const res = await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auctions/${auction.id}`,
+        `${apiUrl}/auctions/${auction.id}`,
         values,
         {
           headers: {

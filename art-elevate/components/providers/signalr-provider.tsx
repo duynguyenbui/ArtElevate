@@ -1,7 +1,11 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
-import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import {
+  HttpTransportType,
+  HubConnection,
+  HubConnectionBuilder,
+} from '@microsoft/signalr';
 import { useBidsStore } from '@/hooks/use-bids-store';
 import { Auction, AuctionFinished, Bid } from '@/types';
 import { useParams, useRouter } from 'next/navigation';
@@ -29,14 +33,22 @@ export const SignalRProvider = ({ children, user }: SignalRProviderProps) => {
   const { addBid } = useBidsStore();
   const { setCurrentPrice, addData } = useAuctionStore();
 
+  const apiUrl =
+    process.env.NODE_ENV === 'production'
+      ? 'https://api.artelevate.com/notifications'
+      : process.env.NEXT_PUBLIC_NOTIFY_URL;
+
   useEffect(() => {
     const connection = new HubConnectionBuilder()
-      .withUrl(`${process.env.NEXT_PUBLIC_NOTIFY_URL || 'http://localhost:6001/notifications'}`)
+      .withUrl(apiUrl!, {
+        skipNegotiation: true,
+        transport: HttpTransportType.WebSockets,
+      })
       .withAutomaticReconnect()
       .build();
 
     setConnection(connection);
-  }, []);
+  }, [apiUrl]);
 
   useEffect(() => {
     const listen = (connection: HubConnection) => {
@@ -84,6 +96,8 @@ export const SignalRProvider = ({ children, user }: SignalRProviderProps) => {
         .catch((error: any) => {
           if (connection.state === 'Disconnected') {
             connection.start().then(() => listen(connection));
+          } else {
+            console.log(error.message);
           }
         });
     }

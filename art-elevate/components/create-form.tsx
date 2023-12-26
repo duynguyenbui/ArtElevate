@@ -27,7 +27,11 @@ import { useRef } from 'react';
 import { Textarea } from './ui/textarea';
 
 export const AuctionForm = () => {
-  // const [name, setName] = useState('Auction Form');
+  const apiUrl =
+    process.env.NODE_ENV === 'production'
+      ? 'https://api.artelevate.com'
+      : process.env.NEXT_PUBLIC_API_SERVER_URL;
+
   const fileInput = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const form = useForm<z.infer<typeof createAuctionFormSchema>>({
@@ -59,16 +63,12 @@ export const AuctionForm = () => {
         }
 
         try {
-          const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_API_SERVER_URL}/auctions`,
-            formData,
-            {
-              headers: {
-                Authorization: await getHeaders(),
-                'Content-Type': 'multipart/form-data',
-              },
-            }
-          );
+          const response = await axios.post(`${apiUrl}/auctions`, formData, {
+            headers: {
+              Authorization: await getHeaders(),
+              'Content-Type': 'multipart/form-data',
+            },
+          });
           toast.success('Auction has been createed successfully');
           router.push(`/auctions/${response.data.id}`);
         } catch (error) {

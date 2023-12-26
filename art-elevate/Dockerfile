@@ -3,7 +3,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
 COPY art-elevate/package*.json ./
-RUN  npm ci
+RUN  npm install --omit-dev
 
 FROM node:20-alpine AS builder
 WORKDIR /app
