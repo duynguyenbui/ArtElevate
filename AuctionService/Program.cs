@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using AuctionService.Consumers;
 using AuctionService.Core;
 using AuctionService.Data;
+using AuctionService.Repositories;
 using AuctionService.Services;
 using AuctionService.Services.Implements;
 using CloudinaryDotNet.Actions;
@@ -23,7 +24,7 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 builder.Services.AddDbContext<AuctionDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
 builder.Services.AddMassTransit(x =>
 {
     x.AddEntityFrameworkOutbox<AuctionDbContext>(options =>
@@ -47,7 +48,6 @@ builder.Services.AddMassTransit(x =>
         configurator.ConfigureEndpoints(context);
     });
 });
-builder.Services.AddScoped<IImageService<ImageUploadResult, DeletionResult>, CloudinaryService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -57,6 +57,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.TokenValidationParameters.NameClaimType = "username";
     });
 builder.Services.AddGrpc();
+builder.Services.AddScoped<IImageService<ImageUploadResult, DeletionResult>, CloudinaryService>();
 
 // Construct application
 var app = builder.Build();
@@ -76,3 +77,6 @@ catch (Exception e) { Console.WriteLine($"[SEED_DATABASE_ERROR] {e.Message}"); }
 
 // Run application
 app.Run();
+
+
+public partial class Program {}
