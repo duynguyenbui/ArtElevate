@@ -22,6 +22,12 @@ builder.Services.AddMassTransit(x =>
 
     x.UsingRabbitMq((context, configurator) =>
     {
+        configurator.UseRetry(r =>
+        {
+            r.Handle<RabbitMqConnectionException>();
+            r.Interval(5, TimeSpan.FromSeconds(5));
+        });
+        
         configurator.Host(builder.Configuration["RabbitMq:Host"], "/", host =>
         {
             host.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
@@ -41,21 +47,17 @@ builder.Services.AddMassTransit(x =>
 
 // Construct application
 var app = builder.Build();
-app.Lifetime.ApplicationStarted.Register(async () =>
-{
-    try
-    {
-        await DatabaseInitializer.InitializeDatabase(app);
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine($"[DATABASE_SEEDING_FAILED] {e.Message}");
-    }
-});
 
 // Init Middleware
 app.MapControllers();
 app.UseExceptionHandler();
+
+app.Lifetime.ApplicationStarted.Register(async () =>
+{
+    await Policy.Handle<TimeoutException>()
+        .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(10))
+        .ExecuteAndCaptureAsync(async () =>  await DatabaseInitializer.InitializeDatabase(app));
+});
 
 // Run application
 app.Run();

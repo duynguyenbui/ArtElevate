@@ -9,6 +9,8 @@ using CloudinaryDotNet.Actions;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using Polly;
 
 // Create builder 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +41,12 @@ builder.Services.AddMassTransit(x =>
     
     x.UsingRabbitMq((context, configurator) =>
     {
+        configurator.UseRetry(r =>
+        {
+            r.Handle<RabbitMqConnectionException>();
+            r.Interval(5, TimeSpan.FromSeconds(5));
+        });
+        
         configurator.Host(builder.Configuration["RabbitMq:Host"], "/", host =>
         {
             host.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
@@ -71,12 +79,16 @@ app.MapGrpcService<GrpcAuctionService>();
 // Global Handler Error
 app.UseExceptionHandler();
 
+
+// Polly
+var retryPolicy = Policy
+    .Handle<NpgsqlException>()
+    .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(10));
+
 // Seed Database
-try { await DbInitializer.InitDatabase(app); }
-catch (Exception e) { Console.WriteLine($"[SEED_DATABASE_ERROR] {e.Message}"); }
+retryPolicy.ExecuteAndCapture(() => DbInitializer.InitDatabase(app));
 
 // Run application
 app.Run();
-
 
 public partial class Program {}
