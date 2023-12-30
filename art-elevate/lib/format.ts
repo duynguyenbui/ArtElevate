@@ -1,5 +1,4 @@
-import { format } from 'date-fns';
-
+import {format} from 'date-fns';
 export const formatPrice = (price: number) => {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -8,11 +7,10 @@ export const formatPrice = (price: number) => {
 };
 
 export function formatDateTime(dateTimeString: string): string {
-  const formattedDate = format(
-    new Date(dateTimeString),
-    "MMMM d, yyyy 'at' hh:mm:ss a"
+  return format(
+      new Date(dateTimeString),
+      "MMMM d, yyyy 'at' hh:mm:ss a"
   );
-  return formattedDate;
 }
 
 export function formatBidStatus(status: string): string {

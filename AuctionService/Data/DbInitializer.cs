@@ -43,10 +43,10 @@ public class DbInitializer
                     Year = 1506,
                     ImageUrl = new List<string>()
                     {
-                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135151/xp8zkzd6nv99uxr6p3lo.jpg",
-                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135151/u8ne0dkumurr1brwldta.jpg",
-                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135151/wnwtqx2xjhlfpi9ujxnd.jpg",
-                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703135151/sxadknodmvnet4krxugp.jpg"
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703913813/bcaacwke87hebvodoasa.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703913813/g7wzceqstqklcqrpqkxw.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703913813/macpbmjpgn8ioe2srsf7.jpg",
+                        "https://res.cloudinary.com/dsceyl414/image/upload/v1703913813/y0gczywd6maobuzhgezo.jpg"
                     }
                 }
             },

@@ -1,11 +1,9 @@
 # CT250 Software Development Project
 
-## Project Topic: **Real-time Online Art Work Auction System based on Microservices Architecture (Mobile and Web App)**
+## Project: **Real-time Online Art Work Auction System based on Microservices Architecture**
 ## Đề Tài: **ĐỀ SUẤT WEBSITE ĐẤU GIÁ THEO THỜI GIAN THỰC DỰA TRÊN KIẾN TRÚC HƯỚNG DỊCH VỤ**
 
-#### Programming Languages Used in this Project: C# and TypeScript
-
-#### Project Start Date: January 2024
+#### Programming Languages: C# and TypeScript
 
 #### Includes: Software Requirements Specification, Source Code, and Project Report
 
@@ -26,10 +24,9 @@
   - [gRPC](https://grpc.io/) to enhance performance
   - [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/)
   - [Rate limiting](https://learn.microsoft.com/en-us/aspnet/core/performance/rate-limit?view=aspnetcore-8.0)
-  - [Stripe](https://stripe.com/) for online payments (x)
-  - JWT Token using [NextAuth](https://next-auth.js.org/) for the client and Identity Server for the server
-  - [Redis](https://redis.io/) for caching (x)
-  - Integration of OpenAI's [GPT 3.5](https://openai.com/) for customer support functions (x)
+  - [Stripe](https://stripe.com/) for online payments
+  - JWT Token using [NextAuth](https://next-auth.js.org/) and Duende Identity Server
+  - Integration of OpenAI's [GPT 3.5](https://openai.com/) for customer support functions
   - [Tailwind CSS](https://tailwindcss.com/) for the user interface (Shadcn/ui)
 
 ---
