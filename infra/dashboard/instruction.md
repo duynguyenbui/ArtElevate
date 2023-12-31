@@ -25,7 +25,7 @@ kubectl -n kubernetes-dashboard create token admin-user
 
 ### Bước 4: Chạy Metric Server
 ```zsh
-kubectl apply -f components.yaml
+kubectl apply -f high-availability-1.21+.yaml
 ```
 
 ### Bước 5: Proxy Kubernetes API

@@ -1,7 +1,5 @@
-import { AlertCircle, Terminal } from 'lucide-react';
-
+import { Terminal } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { LoginButton } from '@/components/login-btn';
 
 const SignInPage = ({
   searchParams,

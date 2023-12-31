@@ -20,7 +20,7 @@ export const PaginationApp = ({
   pageCount,
   onPageChange,
 }: PaginationProps) => {
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const handlePrevious = () => {
     if (currentPage > 1) {

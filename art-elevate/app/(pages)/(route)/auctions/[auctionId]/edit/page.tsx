@@ -8,16 +8,14 @@ const EditPage = async ({ params }: { params: { auctionId: string } }) => {
   const { auctionId } = params;
 
   const user = await getCurrentUser();
-  const auction = await fetchAuctionId(
-    `${process.env.API_SERVER_URL}/auctions/${auctionId}`
-  );
+  const auction = await fetchAuctionId(auctionId);
 
   if (user?.username !== auction.seller) {
     return redirect(`/auctions/${auctionId}`);
   }
 
   return (
-    <div className='p-5 m-2'>
+    <div className="p-5 m-2">
       <UpdateAuctionForm auction={auction} />
     </div>
   );

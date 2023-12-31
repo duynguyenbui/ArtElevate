@@ -26,11 +26,10 @@ export async function getAuctions(
   }
 }
 
-export const fetchAuctions = (url: string) =>
-  axios.get(url).then((res) => res.data) as Promise<PageResult<Auction>>;
-
-export const fetchAuctionId = (url: string) =>
-  axios.get(url).then((res) => res.data) as Promise<Auction>;
+export const fetchAuctionId = (auctionId: string) =>
+  axios
+    .get(`${process.env.API_SERVER_URL}/auctions/${auctionId}`)
+    .then((res) => res.data) as Promise<Auction>;
 
 export const getBidsForAuction = async (id: string) =>
   axios

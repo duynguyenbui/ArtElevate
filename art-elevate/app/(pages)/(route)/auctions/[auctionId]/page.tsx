@@ -18,9 +18,7 @@ const AuctionIdPage = async ({ params }: { params: { auctionId: string } }) => {
   const { auctionId } = params;
 
   const user = await getCurrentUser();
-  const data = await fetchAuctionId(
-    `${process.env.API_SERVER_URL}/auctions/${auctionId}`
-  ).catch((err) => {
+  const data = await fetchAuctionId(auctionId).catch((err) => {
     console.log(err);
     return null;
   });

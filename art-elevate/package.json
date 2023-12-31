@@ -30,7 +30,6 @@
     "next": "14.0.4",
     "next-auth": "^4.22.1",
     "next-themes": "^0.2.1",
-    "query-string": "^8.1.0",
     "react": "^18",
     "react-countdown": "^2.3.5",
     "react-day-picker": "^8.9.1",
