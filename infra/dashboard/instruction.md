@@ -5,7 +5,7 @@ Hướng dẫn cách cài đặt Kubernetes Dashboard và một số thành ph�
 
 ## Yêu Cầu
 - Docker Desktop đã được cài đặt và Kubernetes Cluster đã được bật.
-
+- Trong thư mục infra/dashboard
 ## Cài Đặt
 
 ### Bước 1: Chạy Kubernetes Dashboard
@@ -25,7 +25,7 @@ kubectl -n kubernetes-dashboard create token admin-user
 
 ### Bước 4: Chạy Metric Server
 ```zsh
-kubectl apply -f high-availability-1.21+.yaml
+kubectl apply -f components.yaml
 ```
 
 ### Bước 5: Proxy Kubernetes API

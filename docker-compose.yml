@@ -3,7 +3,7 @@ networks:
     ipam:
       config:
         - subnet: 10.5.0.0/16
-services: 
+services:
   postgres:
     image: postgres
     environment:
@@ -12,7 +12,7 @@ services:
       - 5432:5432
     volumes:
       - /var/lib/postgresql/data
-    networks: 
+    networks:
       custom:
   mongodb:
     image: mongo
@@ -54,7 +54,7 @@ services:
     ports:
       - 7001:80
       - 7777:7777
-    depends_on: 
+    depends_on:
       - postgres
       - rabbitmq
     networks:
@@ -88,11 +88,11 @@ services:
       - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=postgrespw;Database=identity
       - ClientApp=http://app.artelevate.com
       - VIRTUAL_HOST=id.artelevate.com
-    depends_on: 
+    depends_on:
       - postgres
     networks:
       custom:
-        ipv4_address: 10.5.0.200 
+        ipv4_address: 10.5.0.200
   gateway-svc:
     image: duynguyenbui/gateway-svc:latest
     build:
@@ -103,7 +103,7 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - ClientApp=https://app.artelevate.com
       - VIRTUAL_HOST=api.artelevate.com
-    networks: 
+    networks:
       custom:
   bid-svc:
     image: duynguyenbui/bid-svc:latest
@@ -137,8 +137,8 @@ services:
       - 7004:80
     depends_on:
       - rabbitmq
-    networks: 
-      - custom
+    networks:
+      custom:
   web-app:
     image: duynguyenbui/web-app:latest
     build:
@@ -160,12 +160,37 @@ services:
       - VIRTUAL_PORT=3000
     networks:
       custom:
+  prometheus:
+    image: prom/prometheus:v2.36.2
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+    networks: 
+      custom:
+  grafana:
+    image: grafana/grafana
+    user: "472"
+    depends_on:
+      - prometheus
+    volumes:
+      - ./grafana/config:/etc/grafana
+      - ./grafana/dashboards/:/var/lib/grafana/dashboards     
+    ports:
+      - 3000:3000
+    networks:
+      custom:
   nginx-proxy:
     image: nginxproxy/nginx-proxy
     ports:
       - 80:80
       - 443:443
-    networks: 
+    networks:
       custom:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro

@@ -10,7 +10,7 @@ export const authOptions: NextAuthOptions = {
       id: 'id-server',
       clientId: 'nextApp',
       clientSecret: 'secret',
-      issuer: process.env.IDENTITY_SERVER_URL,
+      issuer: process.env.IDENTITY_SERVER_URL || "https://id.artelevate.com",
       authorization: {
         params: {
           scope: 'openid profile auctionApp',

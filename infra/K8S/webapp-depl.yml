@@ -27,7 +27,7 @@ spec:
         ports:
         - containerPort: 3000
 ---
-apiVersion: v1
+apiVersion: v1  
 kind: Service
 metadata:
   name: webapp-clusterip
@@ -50,4 +50,3 @@ spec:
   ports:
   - port: 3000
     targetPort: 3000
-
