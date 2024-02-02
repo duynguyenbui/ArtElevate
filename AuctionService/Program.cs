@@ -10,11 +10,17 @@ using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
+using OpenAI.Net;
 using Polly;
 
 // Create builder 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddOpenAIServices(options =>
+{
+    options.ApiKey = builder.Configuration["OpenAI:ApiKey"];
+    options.ApiUrl = builder.Configuration["OpenAI:Endpoint"] ?? string.Empty;
+});
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -35,10 +41,10 @@ builder.Services.AddMassTransit(x =>
         options.UsePostgres();
         options.UseBusOutbox();
     });
-    
+
     x.AddConsumersFromNamespaceContaining<AuctionCreatedFaultConsumer>();
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("auction", false));
-    
+
     x.UsingRabbitMq((context, configurator) =>
     {
         configurator.UseRetry(r =>
@@ -46,13 +52,13 @@ builder.Services.AddMassTransit(x =>
             r.Handle<RabbitMqConnectionException>();
             r.Interval(5, TimeSpan.FromSeconds(5));
         });
-        
+
         configurator.Host(builder.Configuration["RabbitMq:Host"], "/", host =>
         {
             host.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
             host.Password(builder.Configuration.GetValue("RabbitMq:Password", "guest"));
         });
-        
+
         configurator.ConfigureEndpoints(context);
     });
 });
@@ -64,6 +70,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         options.TokenValidationParameters.ValidateAudience = false;
         options.TokenValidationParameters.NameClaimType = "username";
     });
+builder.Services.AddTransient<IAuctionAI, AuctionAI>();
 builder.Services.AddGrpc();
 builder.Services.AddScoped<IImageService<ImageUploadResult, DeletionResult>, CloudinaryService>();
 
@@ -79,7 +86,6 @@ app.MapGrpcService<GrpcAuctionService>();
 // Global Handler Error
 app.UseExceptionHandler();
 
-
 // Polly
 var retryPolicy = Policy
     .Handle<NpgsqlException>()
@@ -91,4 +97,6 @@ retryPolicy.ExecuteAndCapture(() => DbInitializer.InitDatabase(app));
 // Run application
 app.Run();
 
-public partial class Program {}
+public partial class Program
+{
+}

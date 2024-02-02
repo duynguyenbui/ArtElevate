@@ -25,11 +25,13 @@ public class AuctionControllerTests
     private readonly IFixture _fixture;
     private readonly AuctionsController _auctionsController;
     private readonly IMapper _mapper;
+    private readonly Mock<IAuctionAI> _auctionAi;
 
     public AuctionControllerTests()
     {
         _fixture = new Fixture().Customize(new AutoMoqCustomization());
         _auctionRepository = new Mock<IAuctionRepository>();
+        _auctionAi = new Mock<IAuctionAI>();
         _publishEndpoint = new Mock<IPublishEndpoint>();
         _imageService = new Mock<IImageService<ImageUploadResult, DeletionResult>>();
 
@@ -41,6 +43,7 @@ public class AuctionControllerTests
         _auctionsController = new AuctionsController
         (
             _auctionRepository.Object,
+            _auctionAi.Object,
             _mapper,
             _imageService.Object,
             _publishEndpoint.Object
@@ -109,8 +112,8 @@ public class AuctionControllerTests
         _auctionRepository
             .Setup(repository => repository.SaveChangesAsync()).ReturnsAsync(true);
 
-        createAuctionDto.Files = null;  // Skip test IFormFile
-        
+        createAuctionDto.Files = null; // Skip test IFormFile
+
         // Action
         var result = await _auctionsController.CreateAuction(createAuctionDto);
         var createdResult = result.Result as CreatedAtActionResult;
@@ -120,7 +123,7 @@ public class AuctionControllerTests
         Assert.Equal("GetAuctionById", createdResult.ActionName);
         Assert.IsType<AuctionDto>(createdResult.Value);
     }
-    
+
     [Fact]
     public async Task CreateAuction_FailedSave_Returns400BadRequest()
     {
@@ -133,7 +136,7 @@ public class AuctionControllerTests
         createAuctionDto.Files = null;
         // Action
         var result = await _auctionsController.CreateAuction(createAuctionDto);
-        
+
         // Assert
         Assert.IsType<BadRequestResult>(result.Result);
     }
@@ -157,7 +160,7 @@ public class AuctionControllerTests
 
         // Action
         var result = await _auctionsController.UpdateAuction(auction.Id, updateAuctionDto);
-        
+
         // Assert
         Assert.IsType<OkResult>(result);
     }
@@ -176,7 +179,7 @@ public class AuctionControllerTests
         var result = await _auctionsController.UpdateAuction(auction.Id, updateDto);
 
         // assert
-        Assert.IsType<ForbidResult>(result);  
+        Assert.IsType<ForbidResult>(result);
     }
 
     [Fact]
@@ -216,7 +219,7 @@ public class AuctionControllerTests
         var result = await _auctionsController.DeleteAuction(auction.Id);
 
         // assert
-        Assert.IsType<OkResult>(result);  
+        Assert.IsType<OkResult>(result);
     }
 
     [Fact]
@@ -231,7 +234,7 @@ public class AuctionControllerTests
         var result = await _auctionsController.DeleteAuction(auction.Id);
 
         // assert
-        Assert.IsType<NotFoundResult>(result); 
+        Assert.IsType<NotFoundResult>(result);
     }
 
     [Fact]
@@ -247,6 +250,6 @@ public class AuctionControllerTests
         var result = await _auctionsController.DeleteAuction(auction.Id);
 
         // assert
-        Assert.IsType<ForbidResult>(result); 
+        Assert.IsType<ForbidResult>(result);
     }
 }

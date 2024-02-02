@@ -8,15 +8,17 @@ using CloudinaryDotNet.Actions;
 using Contracts;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using OpenAI.Net;
 
 namespace AuctionService.Controllers;
 
 [ApiController]
 [Route("api/auctions")]
-public class AuctionsController
-(
+public class AuctionsController(
     IAuctionRepository auctionRepository,
+    IAuctionAI auctionAi,
     IMapper mapper,
     IImageService<ImageUploadResult, DeletionResult> imageService,
     IPublishEndpoint publishEndpoint
@@ -36,6 +38,13 @@ public class AuctionsController
         return auction;
     }
 
+    [HttpGet("predict/{id}")]
+    public async Task<ActionResult<string>> GetAuctionPricePredict(Guid id)
+    {
+        var result = await auctionAi.GetPredictPriceAuction(id);
+        return Ok(result);
+    }
+
     [Authorize]
     [HttpPost]
     public async Task<ActionResult<AuctionDto>> CreateAuction([FromForm] CreateAuctionDto createAuctionDto)
@@ -52,6 +61,7 @@ public class AuctionsController
                 imageUrls.Add(imageUploadResult.SecureUrl.ToString());
             }
         }
+
         auction.Item.ImageUrl = imageUrls;
         auctionRepository.AddAuction(auction);
 
@@ -63,7 +73,7 @@ public class AuctionsController
         var result = await auctionRepository.SaveChangesAsync();
 
         if (!result) return BadRequest();
-        
+
         return CreatedAtAction(nameof(GetAuctionById), new { auction.Id }, newAuction);
     }
 
@@ -100,7 +110,7 @@ public class AuctionsController
     public async Task<ActionResult> DeleteAuction(Guid id)
     {
         var auction = await auctionRepository.GetAuctionEntityByIdAsync(id);
-        
+
         if (auction is null) return NotFound();
 
         if (!auction.Seller.Equals(User.Identity.Name)) return Forbid();

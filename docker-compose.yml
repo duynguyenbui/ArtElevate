@@ -51,6 +51,8 @@ services:
       - Kestrel__Endpoints__Grpc__Url=http://+:7777
       - Kestrel__Endpoints__WebApi__Protocols=Http1
       - Kestrel__Endpoints__WebApi__Url=http://+:80
+      - OpenAI__ApiKey=not-needed
+      - OpenAI__Endpoint=http://host.docker.internal:1234
     ports:
       - 7001:80
       - 7777:7777
