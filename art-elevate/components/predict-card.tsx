@@ -4,13 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
-import {
-  MessageCircle,
-  MessageCircleDashed,
-  MessageCircleQuestion,
-  MessageCircleQuestionIcon,
-  Trash2Icon,
-} from 'lucide-react';
+import { MessageCircleQuestion, Trash2Icon } from 'lucide-react';
 
 export const PredictCard = ({ auctionId }: { auctionId: string }) => {
   const [show, setShow] = useState<boolean>(false);
@@ -40,14 +34,14 @@ export const PredictCard = ({ auctionId }: { auctionId: string }) => {
   }, [auctionId, show]);
 
   return (
-    <div className="z-50 absolute bottom-10 right-20 md:right-16">
+    <div className="z-50 absolute transition-all right-10 bottom-5 md:bottom-16 md:right-20 ">
       {show ? (
         <>
           <div className="grid w-[400px] h-[300px] gap-1 mb-3">
             <Textarea
+              isFetchData={loading}
               className="overflow-y-auto text-muted text-sm"
               placeholder={loading ? 'Loading prediction...' : predict}
-              id="message-2"
               readOnly
               disabled={loading}
             />
