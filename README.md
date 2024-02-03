@@ -3,10 +3,6 @@ A reference .NET application implementing an art work auction web site using a s
 ## Real-time Art Work Auction Webiste Using Services-based Architecture
 
 
-
-
----
-
 ### Frameworks and Technologies:
 
 - **Frameworks:**
@@ -23,8 +19,6 @@ A reference .NET application implementing an art work auction web site using a s
   - JWT Token using [NextAuth](https://next-auth.js.org/) and [Duende Identity Server](https://duendesoftware.com/products/identityserver)
   - [Tailwind CSS](https://tailwindcss.com/) for the user interface (Shadcn/ui)
 
----
-
 ### Testing and Deployment:
 
 - Unit Testing and Integration Testing using [xUnit](https://xunit.net/) and [WebFactory](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-7.0)
@@ -38,7 +32,9 @@ A reference .NET application implementing an art work auction web site using a s
 - Install your model with using local or openai model
 - Install & start Docker Desktop:  https://docs.docker.com/engine/install/
 
----
+### Contributing
+
+For more information on contributing to this repo, please contact with me [Duy Nguyen Bui](https://www.facebook.com/duynguyenn.bui).
 
 #### Nextjs
   ![Website Nextjs](img/website-nextjs.png)
@@ -51,9 +47,3 @@ A reference .NET application implementing an art work auction web site using a s
 
 #### Kubernetes
   ![Kubernetes](img/kubernetes.jpeg)
-
----
-
-### Contributing
-
-For more information on contributing to this repo, please contact with me [Duy Nguyen Bui](https://www.facebook.com/duynguyenn.bui).
