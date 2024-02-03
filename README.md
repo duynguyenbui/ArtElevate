@@ -1,7 +1,9 @@
-## CT250 Software Development Project
+# artShop Reference Application - "Art Elevate"
+A reference .NET application implementing an art work auction web site using a services-based architecture.
+## Real-time Art Work Auction Webiste Using Services-based Architecture
 
-### Project: Real-time Art Work Auction Webiste Using Services-based Architecture
-### Đề Tài: WEBSITE ĐẤU GIÁ TÁC PHẨM NGHỆ THUẬT THEO THỜI GIAN THỰC SỬ DỤNG KIẾN TRÚC DỰA TRÊN DỊCH VỤ
+
+
 
 ---
 
@@ -28,17 +30,30 @@
 - Unit Testing and Integration Testing using [xUnit](https://xunit.net/) and [WebFactory](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-7.0)
 - Utilization of [Docker](https://www.docker.com/)/[Kubernetes](https://kubernetes.io/) for building, managing, and deploying
 
+### Prerequisites
+
+- Clone the eShop repository: https://github.com/duynguyenbui/artelevate
+- Nodejs latest [Node 20](https://nodejs.org/en)
+- Install the latest [.NET 8 SDK](https://github.com/dotnet/installer#installers-and-binaries)
+- Install your model with using local or openai model
+- Install & start Docker Desktop:  https://docs.docker.com/engine/install/
+
 ---
 
-### Demo
-
-#### Website Nextjs
+#### Nextjs
   ![Website Nextjs](img/website-nextjs.png)
+
 #### Duende Identity Server
   ![Duende Identity Server](img/duende-identity-server.png)
+
 #### Prometheus - Grafana
   ![Prometheus - Grafana](img/prometheus-grafana.png)
+
 #### Kubernetes
   ![Kubernetes](img/kubernetes.jpeg)
 
 ---
+
+### Contributing
+
+For more information on contributing to this repo, please contact with me [Duy Nguyen Bui](https://www.facebook.com/duynguyenn.bui).
