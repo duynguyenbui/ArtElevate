@@ -50,7 +50,6 @@ public class DbInitializer
                     }
                 }
             },
-
             // 2. Starry Night
             new()
             {
@@ -69,13 +68,13 @@ public class DbInitializer
                     Width = 160,
                     Medium = "Oil on canvas",
                     Year = 1889,
-                    ImageUrl = new List<string>()
-                    {
+                    ImageUrl =
+                    [
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702803970/oijo6dqzqo5txf5fbupx.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702803970/rvwwgmmaojkjj2slbt4l.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702803970/lvjjrcstimo7repnptbw.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702803970/t3npkhw8cn0en8jzaarn.jpg"
-                    }
+                    ]
                 }
             },
             // 3. Guernica
@@ -105,7 +104,6 @@ public class DbInitializer
                     }
                 }
             },
-
             // 4. The Starry Night
             new()
             {
@@ -124,13 +122,13 @@ public class DbInitializer
                     Width = 150,
                     Medium = "Oil on canvas",
                     Year = 1893,
-                    ImageUrl = new List<string>()
-                    {
+                    ImageUrl =
+                    [
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702814046/ljmlylgfdf6svmvac3pe.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702814046/l2wfi4fijgu8agoxqppa.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702814046/npi9lg3vvbjhasgojhoj.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1702814046/h1leto8ktjz1vl1ddxi5.jpg"
-                    }
+                    ]
                 }
             },
             new()
@@ -149,16 +147,15 @@ public class DbInitializer
                     Width = 93,
                     Medium = "Oil on canvas",
                     Year = 1919,
-                    ImageUrl = new List<string>()
-                    {
+                    ImageUrl =
+                    [
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1703135543/zqhnfbyamhgdmekpn4yr.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1703135543/wuvo0r0ehgzqi0avif8p.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1703135543/ue22cqssovvdo4icbmpt.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1703135542/qbwqsoygfj0fr0ys4xuu.jpg"
-                    }
+                    ]
                 }
             },
-
             new()
             {
                 Id = Guid.Parse("836c6d87-0c3c-47ea-b9f0-4e9f1562f22b"),
@@ -176,13 +173,12 @@ public class DbInitializer
                     Width = 152,
                     Medium = "Oil, enamel, and aluminum on fiberboard",
                     Year = 1948,
-                    ImageUrl = new List<string>()
-                    {
+                    ImageUrl =
+                    [
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1703135648/s7bu3gi6r2ejki5ljq6i.jpg"
-                    }
+                    ]
                 }
             },
-
             new()
             {
                 Id = Guid.Parse("e2f933bf-d97c-4c9d-8234-fbdfb12784c7"),
@@ -200,12 +196,12 @@ public class DbInitializer
                     Width = 33,
                     Medium = "Oil on canvas",
                     Year = 1931,
-                    ImageUrl = new List<string>()
-                    {
+                    ImageUrl =
+                    [
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1703135747/vnnvv9zhknsftznwz79t.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1703135747/x5by4ehppmqzgbr61364.jpg",
                         "https://res.cloudinary.com/dsceyl414/image/upload/v1703135746/mt5n1yy2wlzvsgi1kl79.jpg"
-                    }
+                    ]
                 }
             }
         };

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
-import { MessageCircleQuestion, Trash2Icon } from 'lucide-react';
+import { MessageCircleQuestion, StarIcon, StarsIcon, Trash2Icon } from 'lucide-react';
 
 export const PredictCard = ({ auctionId }: { auctionId: string }) => {
   const [show, setShow] = useState<boolean>(false);
@@ -34,13 +34,13 @@ export const PredictCard = ({ auctionId }: { auctionId: string }) => {
   }, [auctionId, show]);
 
   return (
-    <div className="z-50 absolute transition-all right-10 bottom-5 md:bottom-16 md:right-20 ">
+    <div className="z-50 transition-all fixed right-10 bottom-5 md:bottom-16 md:right-20 rounded-lg">
       {show ? (
         <>
-          <div className="grid w-[400px] h-[300px] gap-1 mb-3">
+          <div className="grid w-[400px] h-[300px] gap-1 mb-3 shadow-2xl rounded-3xl">
             <Textarea
               isFetchData={loading}
-              className="overflow-y-auto text-muted text-sm"
+              className="overflow-y-auto rounded-lg text-muted text-sm"
               placeholder={loading ? 'Loading prediction...' : predict}
               readOnly
               disabled={loading}
@@ -59,8 +59,8 @@ export const PredictCard = ({ auctionId }: { auctionId: string }) => {
           onClick={() => setShow(!show)}
           className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
         >
-          <MessageCircleQuestion className="h-6 w-6 mr-2" />
-          Predict
+          <StarsIcon className="h-6 w-6 mr-2" />
+          Gemini
         </Button>
       )}
     </div>

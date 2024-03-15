@@ -134,7 +134,7 @@ export const UpdateAuctionForm = ({ auction }: { auction: Auction }) => {
             name="Height"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Height</FormLabel>
+                <FormLabel>Height(cm)</FormLabel>
                 <FormControl>
                   <Input placeholder="Height" type="number" {...field} />
                 </FormControl>
@@ -147,7 +147,7 @@ export const UpdateAuctionForm = ({ auction }: { auction: Auction }) => {
             name="Width"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Width</FormLabel>
+                <FormLabel>Width(cm)</FormLabel>
                 <FormControl>
                   <Input placeholder="Width" type="number" {...field} />
                 </FormControl>

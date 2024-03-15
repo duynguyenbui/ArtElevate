@@ -53,7 +53,7 @@ export async function placeBidForAuctionAmount(
     .then((res) => res.data);
 }
 
-export const getAuctionsBySeller = (seller: string) =>
+export const getAuctionsByUser = (user: string) =>
   (axios
-    .options(`${process.env.API_SERVER_URL}/search?seller=${seller}`)
+    .options(`${process.env.API_SERVER_URL}/search?user=${user}`)
     .then((res) => res.data) as Promise<Auction[]>) || [];

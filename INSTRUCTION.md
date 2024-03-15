@@ -48,3 +48,4 @@ To streamline the local setup of the ArtElevate app on your computer, carefully 
  - [Web Application](https://app.artelevate.com)
  - [Identity Server](https://id.artelevate.com)
  - [Monitoring](http://localhost:3000)
+ -  [Portainer](http://localhost:9000)

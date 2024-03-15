@@ -51,10 +51,10 @@ public class SearchController : ControllerBase
     }
 
     [HttpOptions]
-    public async Task<ActionResult<List<Item>>> GetAuctionBySeller([FromQuery] string seller)
+    public async Task<ActionResult<List<Item>>> GetAuctionByUser([FromQuery] string user)
     {
         var query = await DB.Find<Item>()
-            .Match(a => a.Seller == seller)
+            .Match(a => a.Seller == user || a.Winner == user)
             .ExecuteAsync();
 
         return Ok(query);
